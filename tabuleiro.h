@@ -68,6 +68,13 @@ public:
 		}
 
 	}
+	std::string getMatriz(int lin, int col){
+			return matriz[lin][col];
+		
+	}
+	void setMatriz(int lin, int col, char pec){
+		matriz[lin][col] = pec;
+	}
 	//adicionar funcoes conforme necessidade
 
 private:
