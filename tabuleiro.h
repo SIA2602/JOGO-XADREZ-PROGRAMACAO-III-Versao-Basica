@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "cavalo.h" 
-#include "rei.h" 
+#include "cavalo.h"
+#include "rei.h"
 #include "rainha.h"
 #include "bispo.h"
 #include "peao.h"
@@ -16,7 +16,7 @@ public:
 
 	//incializando pecas no tabuleiro
 	Tabuleiro()
-	{	
+	{
 		//colocando pecas brancas em suas posicoes
 		_cavalos_brancos[0].inicializa_posicao(0,1);
 		_cavalos_brancos[1].inicializa_posicao(0,6);
@@ -67,13 +67,6 @@ public:
 			_matriz[6][i] = "PB";
 		}
 
-	}
-	std::string getMatriz(int lin, int col){
-			return matriz[lin][col];
-		
-	}
-	void setMatriz(int lin, int col, char pec){
-		matriz[lin][col] = pec;
 	}
 	//adicionar funcoes conforme necessidade
 
