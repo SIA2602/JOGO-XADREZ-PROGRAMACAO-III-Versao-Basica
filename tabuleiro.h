@@ -47,33 +47,62 @@ public:
 
 
 		//colocando pecas no tabuleiro
-		_matriz[0][0] = _matriz[0][7] = "TB"; // T = torre e B = branca
-		_matriz[0][1] = _matriz[0][6] = "CB";
-		_matriz[0][2] = _matriz[0][5] = "BB";
+		_matriz[0][0] = "T1B";
+		_matriz[0][7] = "T2B"; // T = torre e B = branca
+		_matriz[0][1] = "C1B";
+		_matriz[0][6] = "C2B";
+		_matriz[0][2] = "B1B";
+		_matriz[0][5] = "B2B";
 		_matriz[0][3] = "RB";
 		_matriz[0][4] = "DB";
 		for(int i=0; i<8; i++)
 		{
-			_matriz[1][i] = "PB";
+			_matriz[6][i] = "P" + ('1' + i) + "B";
 		}
 
-		_matriz[7][0] = _matriz[0][7] = "TB"; // T = torre e B = branca
-		_matriz[7][1] = _matriz[0][6] = "CB";
-		_matriz[7][2] = _matriz[0][5] = "BB";
-		_matriz[7][3] = "RB";
-		_matriz[7][4] = "DB";
+		_matriz[7][0] = "T1P";
+		_matriz[0][7] = "T2P"; // T = torre e B = branca
+		_matriz[7][1] = "C1P";
+		_matriz[0][6] = "C2P";
+		_matriz[7][2] = "B1P";
+		_matriz[0][5] = "B2P";
+		_matriz[7][3] = "RP";
+		_matriz[7][4] = "DP";
 		for(int i=0; i<8; i++)
 		{
-			_matriz[6][i] = "PB";
+			_matriz[6][i] = "P" + ('1' + i) + "P";
 		}
 	}
 
-	std::string getMatriz(int lin, int col){
-			return matriz[lin][col];
+	std::string getMatriz(int lin, int col)
+	{
+		return matriz[lin][col];
 		
 	}
-	void setMatriz(int lin, int col, char pec){
+	void setMatriz(int lin, int col, const std::string& pec){
 		matriz[lin][col] = pec;
+	}
+
+	bool jogada(const std::string& nome_peca, int pos_i_final, int pos_j_final)
+	{
+		if(pos_i_final > 7 || pos_j_final > 7 || pos_i_final < 0 || pos_j_final < 0) return false;
+
+		if(nome_peca == "0") return false;
+
+		char tipo = nome_peca[0];
+		char cor = nome_peca[nome_peca.size() - 1];
+		int numero = nome_peca[1] - '1';
+
+		if( cor == 'P')
+		{
+			if( tipo == 'T' )
+			{
+				_torres_pretas[numero].verifica_jogada(pos_i_final, pos_j_final, this);
+			}
+
+
+			else 
+		}
 	}
 	//adicionar funcoes conforme necessidade	
 
