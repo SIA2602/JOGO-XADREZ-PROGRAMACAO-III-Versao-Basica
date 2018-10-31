@@ -66,13 +66,20 @@ public:
 		{
 			_matriz[6][i] = "PB";
 		}
-
 	}
-	//adicionar funcoes conforme necessidade
+
+	std::string getMatriz(int lin, int col){
+			return matriz[lin][col];
+		
+	}
+	void setMatriz(int lin, int col, char pec){
+		matriz[lin][col] = pec;
+	}
+	//adicionar funcoes conforme necessidade	
 
 private:
 	//matriz = tabuleiro
-	string _matriz[8][8]; // "_" significa privado "padrao do samuel"
+	string _matriz[8][8]; // "_" significa privado
 
 	//pecas do time branco
 	Cavalo _cavalos_brancos[2];
