@@ -20,8 +20,8 @@ bool Bispo::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabule
 			//conferindo se tem alguma peca para capturar
 			if(peca_no_caminho(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, tabuleiro) == 0)
 			{
-				tabuleiro.setMatriz(pos_final_i, pos_final_j, tabuleiro.getMatriz(pos_atual_i, pos_atual_j));
-				tabuleiro.setMatriz(pos_atual_i, pos_atual_j, '0');
+				tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(pos_atual_i, pos_atual_j));
+				tabuleiro->setMatriz(pos_atual_i, pos_atual_j, "0");
 				inicializa_posicao(pos_final_i, pos_final_j);
 				return true;
 		  	}
@@ -30,7 +30,7 @@ bool Bispo::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabule
  	else return false;
 	}
 
-int Bispo::peca_no_caminho(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, Tabuleiro *tabuleiro)
+int Bispo::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro)
 {
 	if(pos_atual_i > pos_final_i && pos_atual_j > pos_final_j) //caso 1 = andando para cima  a esquerda
 	{
@@ -41,7 +41,7 @@ int Bispo::peca_no_caminho(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, Ta
 		{
 			i--;
 			j--;
-			if(tabuleiro.getMatriz(i, j)!= '0')
+			if(tabuleiro->getMatriz(i, j)!= "0")
 			{
 		    	return 1;//caso return 1 significa que tem peca
 			}
@@ -58,7 +58,7 @@ int Bispo::peca_no_caminho(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, Ta
 		{
 			i--;
 			j++;
-			if(tabuleiro.getMatriz(i, j)!= '0')
+			if(tabuleiro->getMatriz(i, j)!= "0")
 			{
 		    	return 1;//caso return 1 significa que tem peca
 			}
@@ -75,7 +75,7 @@ int Bispo::peca_no_caminho(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, Ta
 		{
 			i++;
 			j++;
-			if(tabuleiro.getMatriz(i, j)!= '0')
+			if(tabuleiro->getMatriz(i, j)!= "0")
 			{
 	    		return 1;//caso return 1 significa que tem peca
 			}
@@ -92,7 +92,7 @@ int Bispo::peca_no_caminho(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, Ta
 		{
 			i++;
 			j--;
-			if(tabuleiro.getMatriz(i, j)!= '0')
+			if(tabuleiro->getMatriz(i, j)!= "0")
 			{
 				return 1;//caso return 1 significa que tem peca
 			}

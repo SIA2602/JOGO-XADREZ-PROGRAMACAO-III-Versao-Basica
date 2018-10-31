@@ -11,7 +11,7 @@ void Rei::inicializa_posicao(int pos_i, int pos_j)
 
 bool Rei::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro)
 {
-	if (tabuleiro.getMatriz(pos_final_i, pos_final_j) == 'RB'|| tabuleiro.getMatriz(pos_final_i, pos_final_j) == 'RP')//Condicao para o rei nao cpturar o outro rei
+	if (tabuleiro->getMatriz(pos_final_i, pos_final_j) == "RB"|| tabuleiro->getMatriz(pos_final_i, pos_final_j) == "RP")//Condicao para o rei nao cpturar o outro rei
 	{ 
 
 
@@ -21,8 +21,8 @@ bool Rei::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleir
 			//conferindo se tem alguma peca para capturar
 			if(peca_no_caminho_torre(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, tabuleiro) == 0)
 			{
-					tabuleiro.setMatriz(pos_final_i, pos_final_j, tabuleiro.getMatriz(pos_atual_i, pos_atual_j));
-					tabuleiro.setMatriz(pos_atual_i, pos_atual_j, '0');
+					tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(pos_atual_i, pos_atual_j));
+					tabuleiro->setMatriz(pos_atual_i, pos_atual_j, "0");
 					inicializa_posicao(pos_final_i, pos_final_j);
 					return true;
 			}
@@ -35,8 +35,8 @@ bool Rei::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleir
 			//conferindo se tem alguma peca para capturar
 			if(peca_no_caminho_bispo(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, tabuleiro) == 0)
 			{
-				tabuleiro.setMatriz(pos_final_i, pos_final_j, tabuleiro.getMatriz(pos_atual_i, pos_atual_j));
-				tabuleiro.setMatriz(pos_atual_i, pos_atual_j, '0');
+				tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(pos_atual_i, pos_atual_j));
+				tabuleiro->setMatriz(pos_atual_i, pos_atual_j, "0");
 				inicializa_posicao(pos_final_i, pos_final_j);
 				return true;
 			}
@@ -47,7 +47,7 @@ bool Rei::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleir
  	else return false;
 	}
 
-int Rei::peca_no_caminho_torre(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, Tabuleiro *tabuleiro)
+int Rei::peca_no_caminho_torre(int pos_atual_i, int pos_atual_j, int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro)
 {
 
 	if(pos_atual_i == pos_final_i && pos_atual_j > pos_final_j)//caso 1 = andando reto para  a esquerda
@@ -55,7 +55,7 @@ int Rei::peca_no_caminho_torre(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j
 		int i = pos_atual_i;
 		int j = pos_atual_j;
 		j--;
-		if(tabuleiro.getMatriz(i, j)!= '0')
+		if(tabuleiro->getMatriz(i, j)!= "0")
 		{
 			return 1;//caso return 1 significa que tem peca
 		}
@@ -67,7 +67,7 @@ int Rei::peca_no_caminho_torre(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j
 		int i = pos_atual_i;
 		int j = pos_atual_j;
 		j++;
-		if(tabuleiro.getMatriz(i, j)!= '0')
+		if(tabuleiro->getMatriz(i, j)!= "0")
 		{
 			return 1;//caso return 1 significa que tem peca
 		}
@@ -80,7 +80,7 @@ int Rei::peca_no_caminho_torre(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j
 		int i = pos_atual_i;
 		int j = pos_atual_j;
 		i++;
-		if(tabuleiro.getMatriz(i, j)!= '0')
+		if(tabuleiro->getMatriz(i, j)!= "0")
 		{
 			return 1;//caso return 1 significa que tem peca
 		}
@@ -93,7 +93,7 @@ int Rei::peca_no_caminho_torre(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j
 		int i = pos_atual_i;
 		int j = pos_atual_j;
 		i--;
-		if(tabuleiro.getMatriz(i, j)!= '0')
+		if(tabuleiro->getMatriz(i, j)!= "0")
 		{
 			return 1;//caso return 1 significa que tem peca
 		}
@@ -102,7 +102,7 @@ int Rei::peca_no_caminho_torre(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j
 }
 
 
-int Rei::peca_no_caminho_bispo(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, Tabuleiro *tabuleiro)
+int Rei::peca_no_caminho_bispo(int pos_atual_i, int pos_atual_j, int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro)
 {
 	if(pos_atual_i > pos_final_i && pos_atual_j > pos_final_j)//caso 1 = andando para cima  a esquerda
   	{
@@ -110,7 +110,7 @@ int Rei::peca_no_caminho_bispo(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j
     	int j = pos_atual_j;
     	i--;
     	j--;
-    	if(tabuleiro.getMatriz(i, j)!= '0')
+    	if(tabuleiro->getMatriz(i, j)!= "0")
     	{
         	return 1;//caso return 1 significa que tem peca
     	}
@@ -124,7 +124,7 @@ int Rei::peca_no_caminho_bispo(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j
         int j = pos_atual_j;
         i--;
         j++;
-    	if(tabuleiro.getMatriz(i, j)!= '0')
+    	if(tabuleiro->getMatriz(i, j)!= "0")
     	{
        		return 1;//caso return 1 significa que tem peca
     	}
@@ -138,7 +138,7 @@ int Rei::peca_no_caminho_bispo(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j
         int j = pos_atual_j;
         i++;
         j++;
-        if(tabuleiro.getMatriz(i, j)!= '0')
+        if(tabuleiro->getMatriz(i, j)!= "0")
         {
             return 1;//caso return 1 significa que tem peca
         }
@@ -152,7 +152,7 @@ int Rei::peca_no_caminho_bispo(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j
         int j = pos_atual_j;
         i++;
         j--;
-        if(tabuleiro.getMatriz(i, j)!= '0')
+        if(tabuleiro->getMatriz(i, j)!= "0")
         {
           return 1;//caso return 1 significa que tem peca
         }
