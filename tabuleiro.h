@@ -113,7 +113,7 @@ public:
 				case 'B':				
 					return _bispos_pretos[numero].verifica_jogada(pos_i_final, pos_j_final, this);					
 				case 'P':				
-					return _peoes_pretos[numero].verifica_jogada(pos_i_final, pos_j_final, this);					
+					return _peoes_pretos[numero].verifica_jogada(pos_i_final, pos_j_final, this);			
 				case 'R':				
 					return _rei_preto.verifica_jogada(pos_i_final, pos_j_final, this);					
 				case 'D':				

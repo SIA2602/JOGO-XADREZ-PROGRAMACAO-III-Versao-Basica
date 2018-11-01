@@ -85,7 +85,7 @@ int Torre::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, in
 		int i = pos_atual_i;
 		int j = pos_atual_j;
 
-		while(i != pos_final_i && j != pos_final_j)
+		while(i != pos_final_i)
 		{
 			i--;
 			if(tabuleiro->getMatriz(i, j)!= "0")

@@ -8,6 +8,8 @@ using namespace std;
 
 int main() {
 
+	static const bool printar_caracteres_especiais = true;
+
 	Tabuleiro t;		
 
 	while(true)
@@ -16,13 +18,19 @@ int main() {
 		for(int i = 0 ; i < 8 ; i++) {
 
 			for(int j = 0; j < 8 ; j++) {
+				
+				if(!printar_caracteres_especiais)
+				{				
+					std::cout.width(3);
+					std::cout << t.getMatriz(i, j) << ' ';
+					continue;
+				}
 
 				string nome_peca = t.getMatriz(i, j);
 				char tipo = nome_peca[0];
 				char cor = nome_peca[nome_peca.size() - 1];				
 
-				std::cout.width(4);				
-
+				//std::cout.width(4);
 				if( cor == 'P')
 				{
 					switch(tipo)
@@ -45,7 +53,7 @@ int main() {
 							break;					
 						case 'D':				
 							std::cout << " \u265B" << ' ';
-							break;								
+							break;
 					}			
 				}
 
@@ -73,7 +81,8 @@ int main() {
 							std::cout << " \u2655" << ' ';
 							break;								
 					}			
-				}							
+				}
+				else std::cout << " - ";	
 			}
 			
 			std::cout << std::endl;
