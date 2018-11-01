@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <math>
+#include <cmath>
 
 class Tabuleiro;
 
