@@ -97,6 +97,8 @@ int Bispo::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, in
 				return 1;//caso return 1 significa que tem peca
 			}
 		}
-			return 0;//se retornar zero que dizer que nao tem peca no caminho
+		return 0;//se retornar zero que dizer que nao tem peca no caminho
 	}
+	
+	return 0;	
 }

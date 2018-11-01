@@ -107,6 +107,8 @@ int Rainha::peca_no_caminho_torre(int pos_atual_i, int pos_atual_j, int pos_fina
 		}
 		return 0;//se retornar zero que dizer que nao tem peca no caminho
 	}
+
+	return 0;
 }
 
 
@@ -178,4 +180,6 @@ int Rainha::peca_no_caminho_bispo(int pos_atual_i, int pos_atual_j, int pos_fina
     	}
     	return 0;//se retornar zero que dizer que nao tem peca no caminho
   	}
+
+  	return 0;
 }

@@ -19,8 +19,7 @@ int main() {
 
 				string nome_peca = t.getMatriz(i, j);
 				char tipo = nome_peca[0];
-				char cor = nome_peca[nome_peca.size() - 1];
-				int numero = nome_peca[1] - '1';
+				char cor = nome_peca[nome_peca.size() - 1];				
 
 				std::cout.width(4);				
 

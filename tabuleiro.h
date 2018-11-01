@@ -141,7 +141,7 @@ public:
 			}			
 		}
 
-		else return false;
+		return false;
 	}
 	//adicionar funcoes conforme necessidade	
 
