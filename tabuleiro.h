@@ -3,11 +3,11 @@
 
 #include <string>
 
-#include "cavalo.h"
+//#include "cavalo.h"
 #include "rei.h"
 #include "rainha.h"
 #include "bispo.h"
-#include "peao.h"
+//#include "peao.h"
 #include "torre.h"
 
 class Tabuleiro {
@@ -28,8 +28,8 @@ public:
 		//colocando pecas brancas em suas posicoes
 		//_cavalos_brancos[0].inicializa_posicao(0,1);
 		//_cavalos_brancos[1].inicializa_posicao(0,6);
-		//_rei_branco.inicializa_posicao(0,3);
-		//_rainha_branca.inicializa_posicao(0,4);
+		_rei_branco.inicializa_posicao(0,3);
+		_rainha_branca.inicializa_posicao(0,4);
 		_bispos_brancos[0].inicializa_posicao(0,2);
 		_bispos_brancos[1].inicializa_posicao(0,5);
 		_torres_brancas[0].inicializa_posicao(0,0);
@@ -42,8 +42,8 @@ public:
 		//colocando pecas pretas em suas posicoes
 		//_cavalos_pretos[0].inicializa_posicao(7,1);
 		//_cavalos_pretos[1].inicializa_posicao(7,6);
-		//_rei_preto.inicializa_posicao(7,3);
-		//_rainha_preta.inicializa_posicao(7,4);
+		_rei_preto.inicializa_posicao(7,3);
+		_rainha_preta.inicializa_posicao(7,4);
 		_bispos_pretos[0].inicializa_posicao(7,2);
 		_bispos_pretos[1].inicializa_posicao(7,5);
 		_torres_pretas[0].inicializa_posicao(7,0);
@@ -61,8 +61,8 @@ public:
 		//_matriz[0][6] = "C2B";
 		_matriz[0][2] = "B1B";
 		_matriz[0][5] = "B2B";
-		//_matriz[0][3] = "RB";
-		//_matriz[0][4] = "DB";
+		_matriz[0][3] = "RB";
+		_matriz[0][4] = "DB";
 		/*for(int i=0; i<8; i++)
 		{
 			_matriz[1][i] = std::string("P") + char('1' + i) + "B";
@@ -74,8 +74,8 @@ public:
 		//_matriz[7][6] = "C2P";
 		_matriz[7][2] = "B1P";
 		_matriz[7][5] = "B2P";
-		//_matriz[7][3] = "RP";
-		//_matriz[7][4] = "DP";
+		_matriz[7][3] = "RP";
+		_matriz[7][4] = "DP";
 		/*for(int i=0; i<8; i++)
 		{
 			_matriz[6][i] = std::string("P") + char('1' + i) + "P";
@@ -108,12 +108,12 @@ public:
 
 				case 'T':				
 					return _torres_pretas[numero].verifica_jogada(pos_i_final, pos_j_final, this);
-				case 'C':				
-					return _cavalos_pretos[numero].verifica_jogada(pos_i_final, pos_j_final, this);
+				/*case 'C':				
+					return _cavalos_pretos[numero].verifica_jogada(pos_i_final, pos_j_final, this);*/
 				case 'B':				
 					return _bispos_pretos[numero].verifica_jogada(pos_i_final, pos_j_final, this);					
-				case 'P':				
-					return _peoes_pretos[numero].verifica_jogada(pos_i_final, pos_j_final, this);			
+				/*case 'P':				
+					return _peoes_pretos[numero].verifica_jogada(pos_i_final, pos_j_final, this);	*/		
 				case 'R':				
 					return _rei_preto.verifica_jogada(pos_i_final, pos_j_final, this);					
 				case 'D':				
@@ -128,12 +128,12 @@ public:
 
 				case 'T':				
 					return _torres_brancas[numero].verifica_jogada(pos_i_final, pos_j_final, this);
-				case 'C':				
-					return _cavalos_brancos[numero].verifica_jogada(pos_i_final, pos_j_final, this);
+				/*case 'C':				
+					return _cavalos_brancos[numero].verifica_jogada(pos_i_final, pos_j_final, this);*/
 				case 'B':				
 					return _bispos_brancos[numero].verifica_jogada(pos_i_final, pos_j_final, this);					
-				case 'P':				
-					return _peoes_brancos[numero].verifica_jogada(pos_i_final, pos_j_final, this);					
+				/*case 'P':				
+					return _peoes_brancos[numero].verifica_jogada(pos_i_final, pos_j_final, this);	*/				
 				case 'R':				
 					return _rei_branco.verifica_jogada(pos_i_final, pos_j_final, this);					
 				case 'D':				
@@ -150,19 +150,19 @@ private:
 	std::string _matriz[8][8]; // "_" significa privado
 
 	//pecas do time branco
-	Cavalo _cavalos_brancos[2];
+	//Cavalo _cavalos_brancos[2];
 	Rei _rei_branco;
 	Rainha _rainha_branca;
 	Bispo _bispos_brancos[2];
-	Peao _peoes_brancos[8];
+	//Peao _peoes_brancos[8];
 	Torre _torres_brancas[2];
 
 	//pecas do time preto
-	Cavalo _cavalos_pretos[2];
+	//Cavalo _cavalos_pretos[2];
 	Rei _rei_preto;
 	Rainha _rainha_preta;
 	Bispo _bispos_pretos[2];
-	Peao _peoes_pretos[8];
+	//Peao _peoes_pretos[8];
 	Torre _torres_pretas[2];
 
 };

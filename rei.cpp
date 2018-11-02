@@ -11,27 +11,62 @@ void Rei::inicializa_posicao(int pos_i, int pos_j)
 
 bool Rei::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro)
 {
-	if (tabuleiro->getMatriz(pos_final_i, pos_final_j) == "RB"|| tabuleiro->getMatriz(pos_final_i, pos_final_j) == "RP")//Condicao para o rei nao cpturar o outro rei
-	{ 
+	//Condicao para o rei nao cpturar o outro rei
+	if (tabuleiro->getMatriz(pos_final_i, pos_final_j) == "RP" || tabuleiro->getMatriz(pos_final_i, pos_final_j) == "RB" ) {return false;};
+	
+	if ((pos_atual_i -1 == pos_final_i && pos_atual_j == pos_final_j )|| ( pos_atual_i -1 == pos_final_i && pos_atual_j+1 == pos_final_j )|| (pos_atual_i -1 == pos_final_i && pos_atual_j-1 == pos_final_j)){
+			tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(pos_atual_i, pos_atual_j));
+			tabuleiro->setMatriz(pos_atual_i, pos_atual_j, "0");
+			inicializa_posicao(pos_final_i, pos_final_j);
+			return true;
 
 
-		//verificando se caminho final eh valido para caminho tipo da torre
-		if( pos_atual_i == pos_final_i || pos_atual_j == pos_final_j ) // caso nao seja invalida a posicao
-		{
+	}
+	if ((pos_atual_i +1 == pos_final_i && pos_atual_j+1 == pos_final_j ) || (pos_atual_i +1 == pos_final_i && pos_atual_j == pos_final_j) || (pos_atual_i +1 == pos_final_i && pos_atual_j-1 == pos_final_j)){
+			tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(pos_atual_i, pos_atual_j));
+			tabuleiro->setMatriz(pos_atual_i, pos_atual_j, "0");
+			inicializa_posicao(pos_final_i, pos_final_j);
+			return true;
+
+
+	}
+	if ((pos_atual_i == pos_final_i && pos_atual_j+1 == pos_final_j ) || (pos_atual_i == pos_final_i && pos_atual_j-1 == pos_final_j) ){
+			tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(pos_atual_i, pos_atual_j));
+			tabuleiro->setMatriz(pos_atual_i, pos_atual_j, "0");
+			inicializa_posicao(pos_final_i, pos_final_j);
+			return true;
+
+
+	}
+	
+	return false;
+}
+
+
+	/*	
+	//verificando se caminho final eh valido para caminho tipo da torre
+	if( pos_atual_i == pos_final_i || pos_atual_j == pos_final_j ) // caso nao seja invalida a posicao
+	{
+		if(pos_atual_j == pos_final_j && pos_atual_i == pos_final_i){return false;}//consicao pra nao capturar ela msm
 			//conferindo se tem alguma peca para capturar
-			if(peca_no_caminho_torre(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, tabuleiro) == 0)
-			{
+		if(peca_no_caminho_torre(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, tabuleiro) == 0)
+		{
 					tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(pos_atual_i, pos_atual_j));
 					tabuleiro->setMatriz(pos_atual_i, pos_atual_j, "0");
 					inicializa_posicao(pos_final_i, pos_final_j);
 					return true;
-			}
-
 		}
 
+	}
+
+
 	    //verificando se caminho final eh valido para caminho tipo do bispo
-		if( (pos_final_j - pos_final_i) == (pos_atual_j - pos_atual_i) ||  (pos_final_j + pos_final_i) == (pos_atual_j + pos_atual_i) ) // caso nao seja invalida a posicao
-		{
+	if( (pos_final_j - pos_final_i) == (pos_atual_j - pos_atual_i) ||  (pos_final_j + pos_final_i) == (pos_atual_j + pos_atual_i) ) // caso nao seja invalida a posicao
+	{
+			//Condicao para o rei nao cpturar o outro rei
+			if (tabuleiro->getMatriz(pos_final_i, pos_final_j) == "RP" || tabuleiro->getMatriz(pos_final_i, pos_final_j) == "RB" ) {return false;};
+	
+			if(pos_atual_j == pos_final_j && pos_atual_i == pos_final_i){return false;}//consicao pra nao capturar ela msm
 			//conferindo se tem alguma peca para capturar
 			if(peca_no_caminho_bispo(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, tabuleiro) == 0)
 			{
@@ -41,10 +76,10 @@ bool Rei::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleir
 				return true;
 			}
 			return false;
-		}
 	}
+	
 
- 	return false;
+ 	
 	}
 
 int Rei::peca_no_caminho_torre(int pos_atual_i, int pos_atual_j, int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro)
@@ -159,7 +194,6 @@ int Rei::peca_no_caminho_bispo(int pos_atual_i, int pos_atual_j, int pos_final_i
           return 1;//caso return 1 significa que tem peca
         }
         return 0;//se retornar zero que dizer que nao tem peca no caminho
-  	}
+  	}*/
 
-  	return 0;
-}
+  	

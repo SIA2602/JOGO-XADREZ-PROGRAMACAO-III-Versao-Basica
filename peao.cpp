@@ -13,8 +13,9 @@ void Peao::inicializa_posicao(int pos_i, int pos_j)
 
 bool Peao::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro)
 {
+	/*
    //PECAS BRANCAS
-   char cor = tabuleiro->getMatriz(pos_atual_i, pos_atual_j).back();
+   std::string cor = tabuleiro->getMatriz(pos_atual_i, pos_atual_j);
    if(cor=='B')
    {
       if( pos_final_i==pos_atual_i+1 && pos_atual_j==pos_final_j )
@@ -85,6 +86,6 @@ int Peao::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, int
          return 1;
 
       y += valor;
-   }
+   }*/
    return 0;
 }
