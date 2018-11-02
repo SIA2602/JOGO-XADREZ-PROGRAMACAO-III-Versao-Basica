@@ -26,60 +26,60 @@ public:
 			}
 		}
 		//colocando pecas brancas em suas posicoes
-		_cavalos_brancos[0].inicializa_posicao(0,1);
-		_cavalos_brancos[1].inicializa_posicao(0,6);
-		_rei_branco.inicializa_posicao(0,3);
-		_rainha_branca.inicializa_posicao(0,4);
+		//_cavalos_brancos[0].inicializa_posicao(0,1);
+		//_cavalos_brancos[1].inicializa_posicao(0,6);
+		//_rei_branco.inicializa_posicao(0,3);
+		//_rainha_branca.inicializa_posicao(0,4);
 		_bispos_brancos[0].inicializa_posicao(0,2);
 		_bispos_brancos[1].inicializa_posicao(0,5);
 		_torres_brancas[0].inicializa_posicao(0,0);
 		_torres_brancas[1].inicializa_posicao(0,7);
-		for(int i=0; i<8; i++)
+		/*for(int i=0; i<8; i++)
 		{
 			_peoes_brancos[i].inicializa_posicao(1,i);
-		}
+		}*/
 
 		//colocando pecas pretas em suas posicoes
-		_cavalos_pretos[0].inicializa_posicao(7,1);
-		_cavalos_pretos[1].inicializa_posicao(7,6);
-		_rei_preto.inicializa_posicao(7,3);
-		_rainha_preta.inicializa_posicao(7,4);
+		//_cavalos_pretos[0].inicializa_posicao(7,1);
+		//_cavalos_pretos[1].inicializa_posicao(7,6);
+		//_rei_preto.inicializa_posicao(7,3);
+		//_rainha_preta.inicializa_posicao(7,4);
 		_bispos_pretos[0].inicializa_posicao(7,2);
 		_bispos_pretos[1].inicializa_posicao(7,5);
 		_torres_pretas[0].inicializa_posicao(7,0);
 		_torres_pretas[1].inicializa_posicao(7,7);
-		for(int i=0; i<8; i++)
+		/*for(int i=0; i<8; i++)
 		{
 			_peoes_pretos[i].inicializa_posicao(6,i);
-		}
+		}*/
 
 
 		//colocando pecas no tabuleiro
 		_matriz[0][0] = "T1B";
 		_matriz[0][7] = "T2B"; // T = torre e B = branca
-		_matriz[0][1] = "C1B";
-		_matriz[0][6] = "C2B";
+		//_matriz[0][1] = "C1B";
+		//_matriz[0][6] = "C2B";
 		_matriz[0][2] = "B1B";
 		_matriz[0][5] = "B2B";
-		_matriz[0][3] = "RB";
-		_matriz[0][4] = "DB";
-		for(int i=0; i<8; i++)
+		//_matriz[0][3] = "RB";
+		//_matriz[0][4] = "DB";
+		/*for(int i=0; i<8; i++)
 		{
 			_matriz[1][i] = std::string("P") + char('1' + i) + "B";
-		}
+		}*/
 
 		_matriz[7][0] = "T1P";
 		_matriz[7][7] = "T2P"; // T = torre e B = branca
-		_matriz[7][1] = "C1P";
-		_matriz[7][6] = "C2P";
+		//_matriz[7][1] = "C1P";
+		//_matriz[7][6] = "C2P";
 		_matriz[7][2] = "B1P";
 		_matriz[7][5] = "B2P";
-		_matriz[7][3] = "RP";
-		_matriz[7][4] = "DP";
-		for(int i=0; i<8; i++)
+		//_matriz[7][3] = "RP";
+		//_matriz[7][4] = "DP";
+		/*for(int i=0; i<8; i++)
 		{
 			_matriz[6][i] = std::string("P") + char('1' + i) + "P";
-		}
+		}*/
 	}
 
 	std::string getMatriz(int lin, int col)

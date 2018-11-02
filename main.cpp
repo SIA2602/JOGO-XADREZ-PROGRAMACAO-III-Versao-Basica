@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
 
-	static const bool printar_caracteres_especiais = true;
+	static const bool printar_caracteres_especiais = false;
 
 	Tabuleiro t;		
 

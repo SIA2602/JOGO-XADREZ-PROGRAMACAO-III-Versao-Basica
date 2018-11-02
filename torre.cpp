@@ -32,19 +32,20 @@ bool Torre::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabule
 
 int Torre::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro)
 {
+	if(pos_atual_i == pos_final_i && pos_atual_j == pos_final_j) return 1;
 
 	if(pos_atual_i == pos_final_i && pos_atual_j > pos_final_j)//caso 1 = andando reto para  a esquerda
 	{
 		int i = pos_atual_i;
-		int j = pos_atual_j;
+		int j = pos_atual_j-1;
 
-		while(j != pos_final_j)
-		{
-			j--;
-			if(tabuleiro->getMatriz(i, j)!= "0")
+		while(j > pos_final_j)
+		{			
+			if(tabuleiro->getMatriz(i, j) != "0")
 			{
 				return 1;//caso return 1 significa que tem peca
 			}
+			j--;
 		}
 		return 0;//se retornar zero que dizer que nao tem peca no caminho
 	}
@@ -52,46 +53,46 @@ int Torre::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, in
 	if(pos_atual_i == pos_final_i && pos_atual_j < pos_final_j)//caso 2 = andando  reto para a direita
 	{
 		int i = pos_atual_i;
-		int j = pos_atual_j;
+		int j = pos_atual_j+1;	
 
-		while(j != pos_final_j)
-		{
-			j++;
-			if(tabuleiro->getMatriz(i, j)!= "0")
-			{
+		while(j < pos_final_j)
+		{			
+			if(tabuleiro->getMatriz(i, j) != "0")
+			{				
 				return 1;//caso return 1 significa que tem peca
 			}
+			j++;
 		}
-		return 0;//se retornar zero que dizer que nao tem peca no caminho
+
+		return 0;//se retornar zero que dizer que nao tem peca no caminho		
 	}
 
 	if(pos_atual_i < pos_final_i && pos_atual_j == pos_final_j)//caso 3  = andando para baixo  reto
 	{
-		int i = pos_atual_i;
+		int i = pos_atual_i+1;
 		int j = pos_atual_j;
-		while(i != pos_final_i)
-		{
-			i++;
-			if(tabuleiro->getMatriz(i, j)!= "0")
+		while(i < pos_final_i)
+		{			
+			if(tabuleiro->getMatriz(i, j) != "0")
 			{
 				return 1;//caso return 1 significa que tem peca
 			}
+			i++;
 		}
 		return 0;//se retornar zero que dizer que nao tem peca no caminho
 	}
 
 	if(pos_atual_i > pos_final_i && pos_atual_j == pos_final_j)//caso 4 = andando para cima  direita
 	{
-		int i = pos_atual_i;
+		int i = pos_atual_i-1;
 		int j = pos_atual_j;
-
-		while(i != pos_final_i)
-		{
-			i--;
-			if(tabuleiro->getMatriz(i, j)!= "0")
+		while(i > pos_final_i)
+		{			
+			if(tabuleiro->getMatriz(i, j) != "0")
 			{
 				return 1;//caso return 1 significa que tem peca
 			}
+			i--;
 		}
 		return 0;//se retornar zero que dizer que nao tem peca no caminho
 	}
