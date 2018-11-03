@@ -13,9 +13,8 @@ void Peao::inicializa_posicao(int pos_i, int pos_j)
 
 bool Peao::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro)
 {
-	/*
    //PECAS BRANCAS
-   std::string cor = tabuleiro->getMatriz(pos_atual_i, pos_atual_j);
+   char cor = tabuleiro->getMatriz(pos_atual_i, pos_atual_j).back();
    if(cor=='B')
    {
       if( pos_final_i==pos_atual_i+1 && pos_atual_j==pos_final_j )
@@ -29,7 +28,7 @@ bool Peao::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabulei
          }
       }
 
-      if( pos_final_i==pos_atual_i+2 && pos_atual_j==pos_final_j && nJogadas==0)
+      else if( pos_final_i==pos_atual_i+2 && pos_atual_j==pos_final_j && nJogadas==0)
       {
          if(peca_no_caminho(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, tabuleiro) == 0){
             tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(pos_atual_i, pos_atual_j));
@@ -42,7 +41,7 @@ bool Peao::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabulei
       return false;
    }
    //PECAS PRETAS
-   if(cor=='P')
+   else if(cor=='P')
    {
       if( pos_final_i==pos_atual_i-1 && pos_atual_j==pos_final_j )
       {
@@ -55,7 +54,7 @@ bool Peao::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabulei
          }
       }
 
-      if( pos_final_i==pos_atual_i-2 && pos_atual_j==pos_final_j && nJogadas==0)
+      else if( pos_final_i==pos_atual_i-2 && pos_atual_j==pos_final_j && nJogadas==0)
       {
          if(peca_no_caminho(pos_atual_i,pos_atual_j, pos_final_i, pos_final_j, tabuleiro) == 0){
             tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(pos_atual_i, pos_atual_j));
@@ -86,6 +85,6 @@ int Peao::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, int
          return 1;
 
       y += valor;
-   }*/
+   }
    return 0;
 }
