@@ -15,11 +15,18 @@ int main() {
 	while(true)
 	{
 
+		if(!printar_caracteres_especiais)
+		{
+			std::cout << "   a  b  c  d  e  f  g  h  " << std::endl;
+			std::cout << "---------------------------" << std::endl;
+		}
 		for(int i = 0 ; i < 8 ; i++) {
+
+			if(printar_caracteres_especiais == false) std::cout << 8-i << "|";
 
 			for(int j = 0; j < 8 ; j++) {
 				
-				if(!printar_caracteres_especiais)
+				if(printar_caracteres_especiais)
 				{				
 					std::cout.width(3);
 					std::cout << t.getMatriz(i, j) << ' ';
@@ -85,7 +92,13 @@ int main() {
 				else std::cout << " - ";	
 			}
 			
-			std::cout << std::endl;
+			if(printar_caracteres_especiais == false) std::cout << "|" << 8-i << std::endl;
+			else std::cout << std::endl;
+		}
+		if(printar_caracteres_especiais == false)
+		{
+			std::cout << "---------------------------" << std::endl;
+			std::cout << "   a  b  c  d  e  f  g  h  " << std::endl;		
 		}	
 
 		std::cout << "Entrada: ";
