@@ -77,6 +77,12 @@ int Peao::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, int
    int valor;
    if(pos_final_i > y) valor = 1;
    else valor = -1;
+
+   if(tabuleiro->getMatriz(pos_final_i, pos_final_j)!="0" && pos_atual_j==pos_final_j)
+   {
+      return 1;
+   }
+
    y += valor;
    while(y != pos_final_i)
    {

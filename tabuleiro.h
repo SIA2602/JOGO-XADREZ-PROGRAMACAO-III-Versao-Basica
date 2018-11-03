@@ -40,8 +40,8 @@ public:
 		}
 
 		//colocando pecas pretas em suas posicoes
-		//_cavalos_pretos[0].inicializa_posicao(7,1);
-		//_cavalos_pretos[1].inicializa_posicao(7,6);
+		_cavalos_pretos[0].inicializa_posicao(7,1);
+		_cavalos_pretos[1].inicializa_posicao(7,6);
 		_rei_preto.inicializa_posicao(7,3);
 		_rainha_preta.inicializa_posicao(7,4);
 		_bispos_pretos[0].inicializa_posicao(7,2);
@@ -108,12 +108,12 @@ public:
 
 				case 'T':
 					return _torres_pretas[numero].verifica_jogada(pos_i_final, pos_j_final, this);
-				/*case 'C':
-					return _cavalos_pretos[numero].verifica_jogada(pos_i_final, pos_j_final, this);*/
+				case 'C':
+					return _cavalos_pretos[numero].verifica_jogada(pos_i_final, pos_j_final, this);
 				case 'B':
 					return _bispos_pretos[numero].verifica_jogada(pos_i_final, pos_j_final, this);
-				/*case 'P':
-					return _peoes_pretos[numero].verifica_jogada(pos_i_final, pos_j_final, this);	*/
+				case 'P':
+					return _peoes_pretos[numero].verifica_jogada(pos_i_final, pos_j_final, this);
 				case 'R':
 					return _rei_preto.verifica_jogada(pos_i_final, pos_j_final, this);
 				case 'D':
@@ -128,12 +128,12 @@ public:
 
 				case 'T':
 					return _torres_brancas[numero].verifica_jogada(pos_i_final, pos_j_final, this);
-				/*case 'C':
-					return _cavalos_brancos[numero].verifica_jogada(pos_i_final, pos_j_final, this);*/
+				case 'C':
+					return _cavalos_brancos[numero].verifica_jogada(pos_i_final, pos_j_final, this);
 				case 'B':
 					return _bispos_brancos[numero].verifica_jogada(pos_i_final, pos_j_final, this);
-				/*case 'P':
-					return _peoes_brancos[numero].verifica_jogada(pos_i_final, pos_j_final, this);	*/
+				case 'P':
+					return _peoes_brancos[numero].verifica_jogada(pos_i_final, pos_j_final, this);
 				case 'R':
 					return _rei_branco.verifica_jogada(pos_i_final, pos_j_final, this);
 				case 'D':
