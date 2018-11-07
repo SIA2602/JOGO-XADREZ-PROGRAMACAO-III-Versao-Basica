@@ -23,6 +23,7 @@ bool Bispo::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabule
 				tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(pos_atual_i, pos_atual_j));
 				tabuleiro->setMatriz(pos_atual_i, pos_atual_j, "0");
 				inicializa_posicao(pos_final_i, pos_final_j);
+				nJogadas ++;
 				return true;
 		  	}
 			return false;

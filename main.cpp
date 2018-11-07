@@ -109,7 +109,7 @@ int main() {
 		std::cin >> x >> y;
 
 		if(!t.jogada(peca, x, y)) {
-
+				
 			std::cout << "Jogada Invalida" << std::endl;
 		}
 	}
