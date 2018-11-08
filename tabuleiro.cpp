@@ -3,7 +3,7 @@
 
 
 
-bool Tabuleiro :: roque(int pos_final_i, int pos_final_j){
+/*bool Tabuleiro :: roque(int pos_final_i, int pos_final_j){
 
 	if(_rei_branco.getNjogadas() == 0 && pos_final_i == 7 && pos_final_j == 6 && getMatriz(7, 5) == "0" && getMatriz(7, 6) == "0" && _rei_branco.getNjogadas() == 0 ){//roque menor pecas branca
 		setMatriz(pos_final_i, pos_final_j, getMatriz(_rei_branco.posicao_inicial_i(), _rei_branco.posicao_inicial_j()));
@@ -57,8 +57,9 @@ bool Tabuleiro :: roque(int pos_final_i, int pos_final_j){
 	return false;
 
 
-}
+}*/
 
+/*
 bool xeque(){
 
 }
@@ -157,6 +158,6 @@ verificando_xeque_TorreErainha_(int pos_atual_i, int pos_atual_j, int pos_final_
 }	
 
 
-
+*/
 
 

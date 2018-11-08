@@ -12,12 +12,27 @@ public:
 	Rei (): nJogadas(0){};
 	void inicializa_posicao(int pos_i, int pos_j);	
 
-	bool verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro);
-	int getNjogadas (){
+	bool verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro);	
+
+	int getNjogadas ()
+	{
 		return nJogadas;
 	}
-	int posicao_inicial_i();
-	int posicao_inicial_j();
+
+	void setNjogadas()
+	{
+		nJogadas++;
+	}
+
+	int posicao_inicial_i()
+	{
+		return pos_atual_i;
+	}
+
+	int posicao_inicial_j()
+	{
+		return pos_atual_j;
+	}	
 
 private:
 

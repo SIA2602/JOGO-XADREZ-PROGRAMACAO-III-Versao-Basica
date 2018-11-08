@@ -10,14 +10,6 @@ void Rei::inicializa_posicao(int pos_i, int pos_j)
 	return;
 }
 
-int Rei::posicao_inicial_i(){
-	return pos_atual_i;
-}
-int Rei :: posicao_inicial_j(){
-	return pos_atual_j;
-}
-
-
 bool Rei::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro)
 {
 	

@@ -93,7 +93,7 @@ public:
 	bool jogada(const std::string& nome_peca, int pos_i_final, int pos_j_final)
 	{
 		if(pos_i_final > 7 || pos_j_final > 7 || pos_i_final < 0 || pos_j_final < 0) return false;
-		if (roque(pos_i_final, pos_j_final)== true) return true;
+		//if (roque(pos_i_final, pos_j_final)== true) return true;
 
 		if(nome_peca == "0") return false;
 

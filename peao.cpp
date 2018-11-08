@@ -15,7 +15,7 @@ bool Peao::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabulei
 {
    //PECAS BRANCAS
    char cor = tabuleiro->getMatriz(pos_atual_i, pos_atual_j).back();
-   if(cor=='B')
+   if(cor=='P')
    {
       if( pos_final_i==pos_atual_i+1 && pos_atual_j==pos_final_j )
       {
@@ -41,7 +41,7 @@ bool Peao::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabulei
       return false;
    }
    //PECAS PRETAS
-   else if(cor == 'P')
+   else if(cor == 'B')
    {
       if( pos_final_i==pos_atual_i-1 && pos_atual_j==pos_final_j )
       {
