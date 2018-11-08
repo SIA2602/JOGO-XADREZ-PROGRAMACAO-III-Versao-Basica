@@ -14,14 +14,11 @@ public:
 	void inicializa_posicao(int pos_i, int pos_j);	
 
 	//funcao responsavel por verificar se a jogada eh valida
-	bool verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro);	
-	int getNjogadas (){
-		return nJogadas;
-	}	
+	bool verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro);
+	
 
 private:
 	int peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro);
-	int nJogadas = 0;
 	int pos_atual_i;
 	int pos_atual_j; //posicao atual em i e j
 };

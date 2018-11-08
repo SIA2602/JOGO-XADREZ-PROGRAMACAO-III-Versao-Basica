@@ -11,7 +11,7 @@ int main() {
 	static const bool printar_caracteres_especiais = false;
 
 	Tabuleiro t;		
-
+	
 	while(true)
 	{
 

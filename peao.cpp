@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-
+using namespace std;
 #include "tabuleiro.h"
 #include "peao.h"
 
@@ -41,7 +41,7 @@ bool Peao::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabulei
       return false;
    }
    //PECAS PRETAS
-   else if(cor=='P')
+   else if(cor == 'P')
    {
       if( pos_final_i==pos_atual_i-1 && pos_atual_j==pos_final_j )
       {

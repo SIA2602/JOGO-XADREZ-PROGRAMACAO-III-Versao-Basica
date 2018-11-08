@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-
+using namespace std;
 #include "tabuleiro.h"
 #include "cavalo.h"
 
