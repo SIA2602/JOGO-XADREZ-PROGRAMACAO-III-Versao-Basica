@@ -27,8 +27,8 @@ public:
 		//colocando pecas brancas em suas posicoes
 		_cavalos_brancos[0].inicializa_posicao(7,1);
 		_cavalos_brancos[1].inicializa_posicao(7,6);
-		_rei_branco.inicializa_posicao(7,3);
-		_rainha_branca.inicializa_posicao(7,4);
+		_rei_branco.inicializa_posicao(7,4);
+		_rainha_branca.inicializa_posicao(7,3);
 		_bispos_brancos[0].inicializa_posicao(7,2);
 		_bispos_brancos[1].inicializa_posicao(7,5);
 		_torres_brancas[0].inicializa_posicao(7,0);
@@ -41,8 +41,8 @@ public:
 		//colocando pecas pretas em suas posicoes
 		_cavalos_pretos[0].inicializa_posicao(0,1);
 		_cavalos_pretos[1].inicializa_posicao(0,6);
-		_rei_preto.inicializa_posicao(0,3);
-		_rainha_preta.inicializa_posicao(0,4);
+		_rei_preto.inicializa_posicao(0,4);
+		_rainha_preta.inicializa_posicao(0,3);
 		_bispos_pretos[0].inicializa_posicao(0,2);
 		_bispos_pretos[1].inicializa_posicao(0,5);
 		_torres_pretas[0].inicializa_posicao(0,0);
@@ -58,8 +58,8 @@ public:
 		_matriz[0][6] = "C2P";
 		_matriz[0][2] = "B1P";
 		_matriz[0][5] = "B2P";
-		_matriz[0][3] = "DP";
-		_matriz[0][4] = "RP";
+		_matriz[0][3] = "RP";
+		_matriz[0][4] = "DP";
 		for(int i=0; i<8; i++)
 		{
 			_matriz[1][i] = std::string("P") + char('1' + i) + "P";
@@ -71,8 +71,8 @@ public:
 		_matriz[7][6] = "C2B";
 		_matriz[7][2] = "B1B";
 		_matriz[7][5] = "B2B";
-		_matriz[7][3] = "DB";
-		_matriz[7][4] = "RB";
+		_matriz[7][3] = "RB";
+		_matriz[7][4] = "DB";
 		for(int i=0; i<8; i++)
 		{
 			_matriz[6][i] = std::string("P") + char('1' + i) + "B";
@@ -84,7 +84,7 @@ public:
 		return _matriz[lin][col];
 
 	}
-	bool roque(int, int);
+	bool roque(int, int, char);
 	void setMatriz(int lin, int col, const std::string& pec){
 		_matriz[lin][col] = pec;
 	}
@@ -93,7 +93,7 @@ public:
 	bool jogada(const std::string& nome_peca, int pos_i_final, int pos_j_final)
 	{
 		if(pos_i_final > 7 || pos_j_final > 7 || pos_i_final < 0 || pos_j_final < 0) return false;
-		//if (roque(pos_i_final, pos_j_final)== true) return true;
+		if (roque(pos_i_final, pos_j_final,nome_peca[0])== true) return true;
 
 		if(nome_peca == "0") return false;
 
