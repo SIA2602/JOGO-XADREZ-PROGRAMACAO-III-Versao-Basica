@@ -84,9 +84,19 @@ bool Peao::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabulei
    return false;
 }
 
-int Peao::get_nJogadas(void)
+int Peao::getNJogadas(void)
 {
    return nJogadas;
+}
+
+int Peao::posicao_inicial_i(void)
+{
+   return pos_atual_i;
+}
+
+int Peao::posicao_inicial_j(void)
+{
+   return pos_atual_j;
 }
 
 int Peao::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro)
