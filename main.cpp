@@ -22,9 +22,12 @@ std::string switch_char_string(char letra);
 
 int main( int argc, char *argv[] )
 {
-	// Parâmetro de entrada
-	bool tipo_leitura = via_terminal;
+	// Parâmetros de entrada
+	bool tipo_leitura = via_terminal; //entrada manual ou por arquivo
 	static const bool printar_caracteres_especiais = false;
+
+
+
 	Tabuleiro t;
 
 	if(tipo_leitura == jogo_via_arquivo)
@@ -53,7 +56,7 @@ int main( int argc, char *argv[] )
 			std::cin >> jogada;	
 			if(jogada == "fim") break;		
 
-			decodifica_main(t, jogada, printar_caracteres_especiais, cont);			
+			decodifica_main(t, jogada, printar_caracteres_especiais, cont);					
 			cont++;
 		}		
 	}
