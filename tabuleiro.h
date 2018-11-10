@@ -2,6 +2,7 @@
 #define TABULEIRO_H
 
 #include <string>
+#include <vector>
 
 #include "cavalo.h"
 #include "rei.h"
@@ -91,13 +92,14 @@ public:
 	}
 	bool xeque_RP(int n, int m);
 
-	bool jogada(const std::string& nome_peca, int pos_i_final, int pos_j_final)
+	bool jogada(const std::string& nome_peca, int pos_i_final, int pos_j_final, std::string jogada)
 	{
 		if(pos_i_final > 7 || pos_j_final > 7 || pos_i_final < 0 || pos_j_final < 0) return false;
 		//if (roque(pos_i_final, pos_j_final,nome_peca[0])== true) return true;
-		//xeque_RP(0 , 4);
-		
+		//xeque_RP(0 , 4);		
 		if(nome_peca == "0") return false;
+
+		historico_jogadas.push_back(jogada); //armazenando a jogada realizada
 
 		char tipo = nome_peca[0];
 		char cor = nome_peca[nome_peca.size() - 1];
@@ -150,6 +152,8 @@ public:
 private:
 	//matriz = tabuleiro
 	std::string _matriz[8][8]; // "_" significa privado
+
+	std::vector<std::string> historico_jogadas; //armazena o historico de jogadas
 
 	//pecas do time branco
 	Cavalo _cavalos_brancos[2];

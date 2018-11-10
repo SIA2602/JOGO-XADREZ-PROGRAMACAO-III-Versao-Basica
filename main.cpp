@@ -14,7 +14,7 @@ using namespace std;
 
 enum{jogo_via_arquivo, via_terminal};
 void carrega_dados( vector<string> &jogadas_times, char *argv[] );
-void decodifica(Tabuleiro &t, vector<string> jogadas_times, bool printar_caracteres_especiais, int posicao);
+void decodifica_main(Tabuleiro &t, string jogadas_times, bool printar_caracteres_especiais, int posicao);
 int switch_para_letra(char letra);
 int switch_para_numero(char numero);
 std::string switch_char_string(char letra);
@@ -23,7 +23,7 @@ std::string switch_char_string(char letra);
 int main( int argc, char *argv[] )
 {
 	// Parâmetro de entrada
-	bool tipo_leitura = jogo_via_arquivo;
+	bool tipo_leitura = via_terminal;
 	static const bool printar_caracteres_especiais = false;
 	Tabuleiro t;
 
@@ -36,27 +36,25 @@ int main( int argc, char *argv[] )
 		for(unsigned int i=0; i<jogadas_times.size(); i++)
 		{
 			impressao(t, printar_caracteres_especiais);
-			decodifica(t, jogadas_times, printar_caracteres_especiais, i);
+			decodifica_main(t, jogadas_times[i], printar_caracteres_especiais, i);
 		}
 		impressao(t, printar_caracteres_especiais);
 	}
 
 	else
 	{
-		while(true)
+		int cont = 0;
+		for(;;)
 		{
 			impressao(t, printar_caracteres_especiais);
-			std::cout << "Entrada: ";
-			int x, y;
-			std::string peca;
-			
-			std::cin >> peca;
-			std::cin >> x >> y;
+			if( cont%2 == 0 ) std::cout << "Entrada Time Branco: ";	
+			else std::cout << "Entrada Time Preto: ";		
+			std::string jogada;			
+			std::cin >> jogada;	
+			if(jogada == "fim") break;		
 
-			if(!t.jogada(peca, x, y)) {
-					
-				std::cout << "Jogada Invalida" << std::endl;
-			}
+			decodifica_main(t, jogada, printar_caracteres_especiais, cont);			
+			cont++;
 		}		
 	}
 	return 0;
@@ -85,13 +83,13 @@ void carrega_dados( vector<string> &jogadas_times, char *argv[] )
 
 
 
-void decodifica(Tabuleiro &t, vector<string> jogadas_times, bool printar_caracteres_especiais, int posicao)
+void decodifica_main(Tabuleiro &t, string jogadas_times, bool printar_caracteres_especiais, int posicao)
 {
 	char cor_time;
 	if(posicao%2 == 0) cor_time = 'B';
 	else cor_time = 'P';
 
-	string jogada_atual = jogadas_times[posicao];
+	string jogada_atual = jogadas_times;
 
 	//caso letras sejam miusculas significa que sera apenas peao
 	if(islower(jogada_atual[0]) != 0)
@@ -103,7 +101,7 @@ void decodifica(Tabuleiro &t, vector<string> jogadas_times, bool printar_caracte
 			int coluna = switch_para_letra(jogada_atual[0]);
 			cout << peca << " " << linha << " " << coluna << endl;
 
-			if(!t.jogada(peca, linha, coluna))
+			if(!t.jogada(peca, linha, coluna, jogada_atual))
 			{					
 				std::cout << "Jogada Invalida" << std::endl;
 			}
@@ -116,7 +114,7 @@ void decodifica(Tabuleiro &t, vector<string> jogadas_times, bool printar_caracte
 			int coluna = switch_para_letra(jogada_atual[2]);
 			cout << peca << " " << linha << " " << coluna << endl;
 
-			if(!t.jogada(peca, linha, coluna))
+			if(!t.jogada(peca, linha, coluna, jogada_atual))
 			{					
 				std::cout << "Jogada Invalida" << std::endl;
 			}
@@ -133,11 +131,32 @@ void decodifica(Tabuleiro &t, vector<string> jogadas_times, bool printar_caracte
 			int linha = switch_para_numero(jogada_atual[2]);
 			int coluna = switch_para_letra(jogada_atual[1]);		
 
-			if(!t.jogada(peca, linha, coluna))
+			if(!t.jogada(peca, linha, coluna, jogada_atual))
 			{
 				peca = switch_char_string(jogada_atual[0]) + std::string("2") + cor_time;
 				if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) peca = switch_char_string(jogada_atual[0]) + cor_time;									
-				if(!t.jogada(peca, linha, coluna))
+				if(!t.jogada(peca, linha, coluna, jogada_atual))
+				{					
+					std::cout << "Jogada Invalida" << std::endl;
+				}
+				cout << peca << " " << linha << " " << coluna << endl;
+				return;
+			}
+			cout << peca << " " << linha << " " << coluna << endl;
+		}
+
+		if(jogada_atual.size() == 4) //apenas movimentacao para cavalos
+		{
+			string peca = switch_char_string(jogada_atual[0]) + std::string("1") + cor_time;
+			if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) peca = switch_char_string(jogada_atual[0]) + cor_time;
+			int linha = switch_para_numero(jogada_atual[3]);
+			int coluna = switch_para_letra(jogada_atual[2]);		
+
+			if(!t.jogada(peca, linha, coluna, jogada_atual))
+			{
+				peca = switch_char_string(jogada_atual[0]) + std::string("2") + cor_time;
+				if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) peca = switch_char_string(jogada_atual[0]) + cor_time;									
+				if(!t.jogada(peca, linha, coluna, jogada_atual))
 				{					
 					std::cout << "Jogada Invalida" << std::endl;
 				}
