@@ -84,17 +84,21 @@ public:
 		return _matriz[lin][col];
 
 	}
+	
 	bool roque(int, int, char);
 	void setMatriz(int lin, int col, const std::string& pec){
 		_matriz[lin][col] = pec;
 	}
-
+	bool xeque_RP(int n, int m);
 
 	bool jogada(const std::string& nome_peca, int pos_i_final, int pos_j_final)
 	{
 		if(pos_i_final > 7 || pos_j_final > 7 || pos_i_final < 0 || pos_j_final < 0) return false;
-		if (roque(pos_i_final, pos_j_final,nome_peca[0])== true) return true;
+		//if (roque(pos_i_final, pos_j_final,nome_peca[0])== true) return true;
+		xeque_RP(0 , 4);
+		  
 
+		
 		if(nome_peca == "0") return false;
 
 		char tipo = nome_peca[0];

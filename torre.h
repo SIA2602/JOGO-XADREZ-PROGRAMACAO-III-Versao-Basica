@@ -11,7 +11,7 @@ class Torre
 
 public:
 	Torre (): nJogadas(0){};
-	
+	bool verificando_xeque_(int n, int m);//na pos (0,2)(0,4)(0,6) que da pra ver se tem rico p rei	
 	void inicializa_posicao(int pos_i, int pos_j);
 	
 	bool verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro);	
@@ -42,6 +42,7 @@ private:
 	int nJogadas;
 	int pos_atual_i;
 	int pos_atual_j; //posicao atual em i e j
+	
 };
 
 #endif
