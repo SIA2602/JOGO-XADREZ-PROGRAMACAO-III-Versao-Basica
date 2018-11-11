@@ -78,6 +78,15 @@ bool Tabuleiro::jogada(const std::string& nome_peca, int pos_i_final, int pos_j_
 	//xeque_RP(0 , 4);
 	if(nome_peca == "0") return false;
 
+	if( historico_jogadas.size() != 0 )
+	{
+		if( en_passant(nome_peca, pos_i_final, pos_j_final) == true )
+		{
+			std::cout << "Jogada por en-passant" << std::endl; 
+			return true;
+		} 
+	}
+
 	historico_jogadas.push_back(jogada); //armazenando a jogada realizada
 
 	char tipo = nome_peca[0];
