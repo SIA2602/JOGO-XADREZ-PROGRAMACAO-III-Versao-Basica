@@ -129,7 +129,9 @@ bool Tabuleiro::jogada(const std::string& nome_peca, int pos_i_final, int pos_j_
 
 bool Tabuleiro :: roque(int pos_final_i, int pos_final_j, char ){
 	if(_rei_branco.getNjogadas() == 0 && pos_final_i == 7 && pos_final_j == 6 && getMatriz(7, 5) == "0" && getMatriz(7, 6) == "0" && _rei_branco.getNjogadas() == 0 ){//roque menor pecas branca
-		std::cout<< "ROQUE MENOR BRANCAS";
+		if((xeque_RB( 7, 4))==true|| (xeque_RB( 7, 6))== true)return false;
+		if((xeque_RP(0,4))==true|| (xeque_RP(0,6))== true)return false;
+		//std::cout<< "ROQUE MENOR BRANCAS";
 		setMatriz(pos_final_i, pos_final_j, getMatriz(_rei_branco.posicao_inicial_i(), _rei_branco.posicao_inicial_j()));
 		setMatriz(_rei_branco.posicao_inicial_i(), _rei_branco.posicao_inicial_j(), "0");
 		_rei_branco.inicializa_posicao(pos_final_i, pos_final_j);
@@ -143,6 +145,7 @@ bool Tabuleiro :: roque(int pos_final_i, int pos_final_j, char ){
 	}
 	
 	if(_rei_branco.getNjogadas() == 0 && pos_final_i == 7 && pos_final_j == 2 && getMatriz(7, 1) == "0" && getMatriz(7,2) == "0" && getMatriz(7, 3) == "0" && _torres_brancas[1].getNjogadas() == 0) {//roque maior branco
+		if((xeque_RB( 7, 4))==true|| (xeque_RB( 7, 2))== true)return false;
 		setMatriz(pos_final_i, pos_final_j,getMatriz(_rei_branco.posicao_inicial_i(), _rei_branco.posicao_inicial_j()));
 		setMatriz(_rei_branco.posicao_inicial_i(), _rei_branco.posicao_inicial_j(), "0");
 		_rei_branco.inicializa_posicao(7, 2);
@@ -158,6 +161,7 @@ bool Tabuleiro :: roque(int pos_final_i, int pos_final_j, char ){
 
 	if(_rei_preto.getNjogadas() == 0 && pos_final_i == 0 && pos_final_j == 6 && getMatriz(0, 5) == "0" && getMatriz(0, 6) == "0" && _torres_pretas[0].getNjogadas() == 0) {//roque menor pecas branca
 		//std::cout<< "ROQUE MENOR pretas";
+		if((xeque_RP(0,4))==true|| (xeque_RP(0,6))== true)return false;
 		setMatriz(pos_final_i, pos_final_j, getMatriz(_rei_preto.posicao_inicial_i(), _rei_preto.posicao_inicial_j()));
 		setMatriz(_rei_preto.posicao_inicial_i(), _rei_preto.posicao_inicial_j(), "0");
 		_rei_preto.inicializa_posicao(pos_final_i, pos_final_j);
@@ -173,6 +177,7 @@ bool Tabuleiro :: roque(int pos_final_i, int pos_final_j, char ){
 
 	if(_rei_preto.getNjogadas() == 0 && pos_final_i == 0 && pos_final_j == 2 && getMatriz(0, 1) == "0" && getMatriz(0,2) == "0" && getMatriz(0, 3) == "0" && _torres_pretas[1].getNjogadas() == 0) {//roque maior pecas bramcas		
 		//std::cout<< "ROQUE MaiOR PRETAS";
+		if((xeque_RP(0,4))==true|| (xeque_RP(0,2))== true)return false;
 		setMatriz(pos_final_i, pos_final_j, getMatriz(_rei_preto.posicao_inicial_i(), _rei_preto.posicao_inicial_j()));
 		setMatriz(_rei_preto.posicao_inicial_i(), _rei_preto.posicao_inicial_j(), "0");
 		_rei_preto.inicializa_posicao(pos_final_i, pos_final_j);
@@ -192,6 +197,35 @@ bool Tabuleiro :: roque(int pos_final_i, int pos_final_j, char ){
 bool Tabuleiro:: xeque_RP( int n , int m){//da pra verificar na (0,2)(0,4)(0,6) os risco para o rei
 	int i = n;
 	int j = m;
+
+	if (m == 0 && n == 6){
+		for (int j = 0; j < 8; j++){
+			if ((getMatriz(1, j) == "C1P") || (getMatriz(1, j) == "C2P")){
+				if( (j == 2)|| (j == 4) ||(j == 6)){
+					return true;
+				}
+			}
+			if ((getMatriz(2, j) == "C1P") || (getMatriz(2, j) == "C2P")){
+				if( (j == 3)|| (j == 5) ||(j == 7)){
+					return true;
+				}
+			}
+		}
+	}
+	if (m == 0 && n == 2){
+		for (int j = 0; j < 8; j++){
+			if ((getMatriz(1, j) == "C1P") || (getMatriz(1, j) == "C2P")){
+				if( (j == 4)|| (j == 2) ||(j == 0)||(j == 6)){
+					return true;
+				}
+			}
+			if ((getMatriz(2, j) == "C1P") || (getMatriz(2, j) == "C2P")){
+				if( (j == 5)|| (j == 3) ||(j == 1)){
+					return true;
+				}
+			}
+		}
+	}
 	while( j > 0 ){
 	//percorrendo para direita reto e analisando se tem alguna peca a adversaria""
 				std::cout<<"DANIELA";		
@@ -214,7 +248,7 @@ bool Tabuleiro:: xeque_RP( int n , int m){//da pra verificar na (0,2)(0,4)(0,6) 
 	}
 	i = n;
 	i = m;
-	/*
+	
 	while( j < 7){
 		if(getMatriz(i, j) != "0"){
 			if((i == 1 && j == 3) ||(i == 1 && j == 5) || (i == 1 && j ==7)){
@@ -232,9 +266,9 @@ bool Tabuleiro:: xeque_RP( int n , int m){//da pra verificar na (0,2)(0,4)(0,6) 
 	}
 	i = n;
 	i = m;
-	*/
+	
 	while(  j < 7){
-		std::cout<<"DANIELA";
+		
 		if(getMatriz(i, j) != "0"){	
 			if(getMatriz(i, j) == "T1B" || getMatriz(i, j) == "T2B"|| getMatriz(i,j) == "RB" ){//a primeira peca no caminho for uma dessa ta em xeque
 					return true;
@@ -247,7 +281,91 @@ bool Tabuleiro:: xeque_RP( int n , int m){//da pra verificar na (0,2)(0,4)(0,6) 
 	return false;
 }
 
+bool Tabuleiro:: xeque_RB( int n , int m){//da pra verificar na (0,2)(0,4)(0,6) os risco para o rei
 
+	if (m == 7 && n ==6){
+		for (int j = 0; j < 8; j++){
+			if ((getMatriz(1, j) == "C1P") || (getMatriz(1, j) == "C2P")){
+				if( (j == 2)|| (j == 4) ||(j == 6)){
+					return true;
+				}
+			}
+			if ((getMatriz(2, j) == "C1P") || (getMatriz(2, j) == "C2P")){
+				if( (j == 3)|| (j == 5) ||(j == 7)){
+					return true;
+				}
+			}
+		}
+	}
+	if (m == 7 && n == 2){
+		for (int j = 0; j < 8; j++){
+			if ((getMatriz(1, j) == "C1P") || (getMatriz(1, j) == "C2P")){
+				if( (j == 4)|| (j == 2) ||(j == 0)||(j == 6)){
+					return true;
+				}
+			}
+			if ((getMatriz(2, j) == "C1P") || (getMatriz(2, j) == "C2P")){
+				if( (j == 5)|| (j == 3) ||(j == 1)){
+					return true;
+				}
+			}
+		}
+	}
+	int i = n;
+	int j = m;
+	while( j > 0 ){
+	//percorrendo para direita reto e analisando se tem alguna peca a adversaria""
+						
+		if(getMatriz(i, j) != "0"){
+			if(((i == 6 ) && (j == 1)) || ((i == 6) && (j == 3)) || ((i == 6) && (j == 5))){
+
+				if((getMatriz(i, j) == "P1P") ||(getMatriz(i, j) == "P2P")||(getMatriz(i, j) == "P3P") ||
+				 (getMatriz(i, j) == "P4P" )||(getMatriz(i, j) == "P5P") ||(getMatriz(i, j) == "P6P" ) ||
+				 (getMatriz(i, j) == "P7P" )|| (getMatriz(i, j) == "P8P")){
+					return true;
+				}
+			}
+			if(getMatriz(i, j) == "B1P" || getMatriz(i, j) == "B2P"|| getMatriz(i,j) == "RP" ){//a primeira peca no caminho for uma dessa ta em xeque
+					return true;
+			}
+			else{j = 0;}
+		}	
+		i++;
+		j--;
+	}
+	i = n;
+	i = m;
+	
+	while( j < 7){
+		if(getMatriz(i, j) != "0"){
+			if((i == 6 && j == 3) ||(i == 6 && j == 5) || (i == 6 && j ==7)){
+				if((getMatriz(i, j) == "P1P") ||(getMatriz(i, j) == "P2P")||(getMatriz(i, j) == "P3P") ||
+				 (getMatriz(i, j) == "P4P" )||(getMatriz(i, j) == "P5P") ||(getMatriz(i, j) == "P6P" ) ||
+				 (getMatriz(i, j) == "P7P" )|| (getMatriz(i, j) == "P8P")){return true;}
+			}
+			if(getMatriz(i, j) == "B1P" || getMatriz(i, j) == "B2P"|| getMatriz(i,j) == "RP" ){//a primeira peca no caminho for uma dessa ta em xeque
+					return true;
+			}
+			else{j = 3;}
+			}	
+		i--;
+		j++;
+	}
+	i = n;
+	i = m;
+	
+	while(  i > 0){
+		if(getMatriz(i, j) != "0"){	
+			if(getMatriz(i, j) == "T1P" || getMatriz(i, j) == "T2P"|| getMatriz(i,j) == "RP" ){//a primeira peca no caminho for uma dessa ta em xeque
+					return true;
+			}
+			else{j = 3;}
+		}	
+		i--;
+		
+	}
+	return false;
+}
 
 
 

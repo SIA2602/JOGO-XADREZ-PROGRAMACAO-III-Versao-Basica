@@ -28,6 +28,8 @@ public:
 
 	bool jogada(const std::string& nome_peca, int pos_i_final, int pos_j_final, std::string jogada);
 
+	bool xeque_RB( int n , int m);
+
 	std::vector<std::string> getHistoricoJogadas() { return historico_jogadas; }
 
 	//adicionar funcoes conforme necessidade
