@@ -1,8 +1,9 @@
 #include "tabuleiro.h"
+#include <ctype.h>
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <cmath>
 
 //incializando pecas no tabuleiro
 Tabuleiro::Tabuleiro()
@@ -74,7 +75,7 @@ bool Tabuleiro::jogada(const std::string& nome_peca, int pos_i_final, int pos_j_
 {
 	if(pos_i_final > 7 || pos_j_final > 7 || pos_i_final < 0 || pos_j_final < 0) return false;
 	//if (roque(pos_i_final, pos_j_final,nome_peca[0])== true) return true;
-	//xeque_RP(0 , 4);		
+	//xeque_RP(0 , 4);
 	if(nome_peca == "0") return false;
 
 	historico_jogadas.push_back(jogada); //armazenando a jogada realizada
@@ -126,10 +127,111 @@ bool Tabuleiro::jogada(const std::string& nome_peca, int pos_i_final, int pos_j_
 	return false;
 }
 
+/*
+// MOVIMENTO EN_PASSANT
+bool Tabuleiro::en_passant( int pos_final_i, int pos_final_j )
+{
+   if( getMatriz( peao.posicao_inicial_i(), pos_final_j )=="0" )
+   {
+      return false;
+   }
 
+   std::string nome_peca = getMatriz( peao.posicao_inicial_i(), peao.posicao_inicial_j() );
+   char tipo = nome_peca[0];
+   nome_peca = getMatriz( peao.posicao_inicial_i(), pos_final_j );
+   char tipo_enemy = nome_peca[0];
+
+   char cor = getMatriz( peao.posicao_inicial_i(), peao.posicao_inicial_j() ).back();
+   char cor_enemy = getMatriz( peao.posicao_inicial_i(), pos_final_j ).back();
+
+   if( tipo!='P' || tipo_enemy!='P' || abs(pos_final_i-peao.posicao_inicial_i())!=1 || abs(pos_final_j-peao.posicao_inicial_j())!=1 || getMatriz(pos_final_i, pos_final_j)!="0" )
+   {
+      return false;
+   }
+
+   int numero = nome_peca[1] - '1';
+
+   //BRANCA CAPTURA
+   if(cor=='B')
+   {
+      if( cor_enemy!=cor && pos_final_i==peao.posicao_inicial_i()-1 && _peoes_pretos[numero].getNJogadas()==1 && mov_anterior(getHistoricoJogadas(), getMatriz(_peoes_pretos[numero].posicao_inicial_i(),_peoes_pretos[numero].posicao_inicial_j()))) )
+      {
+         setMatriz(pos_final_i, pos_final_j, getMatriz(peao.posicao_inicial_i(), peao.posicao_inicial_j()));
+         setMatriz(peao.posicao_inicial_i(), peao.posicao_inicial_j(), "0");
+         setMatriz(peao.posicao_inicial_i(),pos_final_j, "0");
+
+         peao->inicializa_posicao(pos_final_i, pos_final_j);
+         peao->setNJogadas();
+         return true;
+      }
+   }
+
+   //PRETA CAPTURA
+   else if(cor=='P')
+   {
+      if( cor_enemy!=cor && pos_final_i==peao.posicao_inicial_i()+1 && _peoes_brancos[numero].getNJogadas()==1 && mov_anterior(getHistoricoJogadas(), getMatriz(_peoes_brancos[numero].posicao_inicial_i(),_peoes_brancos[numero].posicao_inicial_j())) )
+      {
+         setMatriz(pos_final_i, pos_final_j, getMatriz(peao.posicao_inicial_i(), peao.posicao_inicial_j()));
+         setMatriz(peao.posicao_inicial_i(), peao.posicao_inicial_j(), "0");
+         setMatriz(peao.posicao_inicial_i(),pos_final_j, "0");
+
+         peao.inicializa_posicao(pos_final_i, pos_final_j);
+         peao.setNJogadas();
+         return true;
+      }
+   }
+   return false;
+}
+
+bool Tabuleiro::mov_anterior(std::vector<std::string> v, std::string peao)
+{
+   std::string ultima_jogada = v[v.size()-1];
+
+	char tipo, numero, cor;
+	if( islower(ultima_jogada[0]) )
+	{
+		tipo = 'P';
+	}
+	else
+	{
+		return false;
+	}
+	if( (v.size()-1)%2==0 )
+	{
+		cor = 'B';
+	}
+	else
+	{
+		cor = 'P';
+	}
+	numero = char('1' + switch_para_letra(ultima_jogada[0]));
+
+	std::string pawn_enemy = tipo + numero + cor;
+
+   if( piece[0] == 'P' )
+   {
+      if(peao == pawn_enemy)
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
+   else
+   {
+      return false;
+   }
+}
+*/
+
+// ROQUE MAIOR E ROQUE MENOR
 bool Tabuleiro :: roque(int pos_final_i, int pos_final_j, char ){
 	if(_rei_branco.getNjogadas() == 0 && pos_final_i == 7 && pos_final_j == 6 && getMatriz(7, 5) == "0" && getMatriz(7, 6) == "0" && _rei_branco.getNjogadas() == 0 ){//roque menor pecas branca
-		std::cout<< "ROQUE MENOR BRANCAS";
+		if((xeque_RB( 7, 4))==true|| (xeque_RB( 7, 6))== true)return false;
+		if((xeque_RP(0,4))==true|| (xeque_RP(0,6))== true)return false;
+		//std::cout<< "ROQUE MENOR BRANCAS";
 		setMatriz(pos_final_i, pos_final_j, getMatriz(_rei_branco.posicao_inicial_i(), _rei_branco.posicao_inicial_j()));
 		setMatriz(_rei_branco.posicao_inicial_i(), _rei_branco.posicao_inicial_j(), "0");
 		_rei_branco.inicializa_posicao(pos_final_i, pos_final_j);
@@ -141,8 +243,9 @@ bool Tabuleiro :: roque(int pos_final_i, int pos_final_j, char ){
 		_torres_brancas[1].setNjogadas();
 		return true;
 	}
-	
+
 	if(_rei_branco.getNjogadas() == 0 && pos_final_i == 7 && pos_final_j == 2 && getMatriz(7, 1) == "0" && getMatriz(7,2) == "0" && getMatriz(7, 3) == "0" && _torres_brancas[1].getNjogadas() == 0) {//roque maior branco
+		if((xeque_RB( 7, 4))==true|| (xeque_RB( 7, 2))== true)return false;
 		setMatriz(pos_final_i, pos_final_j,getMatriz(_rei_branco.posicao_inicial_i(), _rei_branco.posicao_inicial_j()));
 		setMatriz(_rei_branco.posicao_inicial_i(), _rei_branco.posicao_inicial_j(), "0");
 		_rei_branco.inicializa_posicao(7, 2);
@@ -158,6 +261,7 @@ bool Tabuleiro :: roque(int pos_final_i, int pos_final_j, char ){
 
 	if(_rei_preto.getNjogadas() == 0 && pos_final_i == 0 && pos_final_j == 6 && getMatriz(0, 5) == "0" && getMatriz(0, 6) == "0" && _torres_pretas[0].getNjogadas() == 0) {//roque menor pecas branca
 		//std::cout<< "ROQUE MENOR pretas";
+		if((xeque_RP(0,4))==true|| (xeque_RP(0,6))== true)return false;
 		setMatriz(pos_final_i, pos_final_j, getMatriz(_rei_preto.posicao_inicial_i(), _rei_preto.posicao_inicial_j()));
 		setMatriz(_rei_preto.posicao_inicial_i(), _rei_preto.posicao_inicial_j(), "0");
 		_rei_preto.inicializa_posicao(pos_final_i, pos_final_j);
@@ -171,8 +275,9 @@ bool Tabuleiro :: roque(int pos_final_i, int pos_final_j, char ){
 	}
 
 
-	if(_rei_preto.getNjogadas() == 0 && pos_final_i == 0 && pos_final_j == 2 && getMatriz(0, 1) == "0" && getMatriz(0,2) == "0" && getMatriz(0, 3) == "0" && _torres_pretas[1].getNjogadas() == 0) {//roque maior pecas bramcas		
+	if(_rei_preto.getNjogadas() == 0 && pos_final_i == 0 && pos_final_j == 2 && getMatriz(0, 1) == "0" && getMatriz(0,2) == "0" && getMatriz(0, 3) == "0" && _torres_pretas[1].getNjogadas() == 0) {//roque maior pecas bramcas
 		//std::cout<< "ROQUE MaiOR PRETAS";
+		if((xeque_RP(0,4))==true|| (xeque_RP(0,2))== true)return false;
 		setMatriz(pos_final_i, pos_final_j, getMatriz(_rei_preto.posicao_inicial_i(), _rei_preto.posicao_inicial_j()));
 		setMatriz(_rei_preto.posicao_inicial_i(), _rei_preto.posicao_inicial_j(), "0");
 		_rei_preto.inicializa_posicao(pos_final_i, pos_final_j);
@@ -189,12 +294,42 @@ bool Tabuleiro :: roque(int pos_final_i, int pos_final_j, char ){
 
 }
 
+//XEQUE PRETO
 bool Tabuleiro:: xeque_RP( int n , int m){//da pra verificar na (0,2)(0,4)(0,6) os risco para o rei
 	int i = n;
 	int j = m;
+
+	if (m == 0 && n == 6){
+		for (int j = 0; j < 8; j++){
+			if ((getMatriz(1, j) == "C1P") || (getMatriz(1, j) == "C2P")){
+				if( (j == 2)|| (j == 4) ||(j == 6)){
+					return true;
+				}
+			}
+			if ((getMatriz(2, j) == "C1P") || (getMatriz(2, j) == "C2P")){
+				if( (j == 3)|| (j == 5) ||(j == 7)){
+					return true;
+				}
+			}
+		}
+	}
+	if (m == 0 && n == 2){
+		for (int j = 0; j < 8; j++){
+			if ((getMatriz(1, j) == "C1P") || (getMatriz(1, j) == "C2P")){
+				if( (j == 4)|| (j == 2) ||(j == 0)||(j == 6)){
+					return true;
+				}
+			}
+			if ((getMatriz(2, j) == "C1P") || (getMatriz(2, j) == "C2P")){
+				if( (j == 5)|| (j == 3) ||(j == 1)){
+					return true;
+				}
+			}
+		}
+	}
 	while( j > 0 ){
 	//percorrendo para direita reto e analisando se tem alguna peca a adversaria""
-				std::cout<<"DANIELA";		
+				std::cout<<"DANIELA";
 		if(getMatriz(i, j) != "0"){
 			if(((i == 1 ) && (j == 3)) || ((i == 1) && (j == 1)) || ((i == 1) && (j == 5))){
 
@@ -208,13 +343,13 @@ bool Tabuleiro:: xeque_RP( int n , int m){//da pra verificar na (0,2)(0,4)(0,6) 
 					return true;
 			}
 			else{j = 0;}
-		}	
+		}
 		i++;
 		j--;
 	}
 	i = n;
 	i = m;
-	/*
+
 	while( j < 7){
 		if(getMatriz(i, j) != "0"){
 			if((i == 1 && j == 3) ||(i == 1 && j == 5) || (i == 1 && j ==7)){
@@ -226,28 +361,110 @@ bool Tabuleiro:: xeque_RP( int n , int m){//da pra verificar na (0,2)(0,4)(0,6) 
 					return true;
 			}
 			else{j = 3;}
-			}	
+			}
 		i++;
 		j++;
 	}
 	i = n;
 	i = m;
-	*/
+
 	while(  j < 7){
-		std::cout<<"DANIELA";
-		if(getMatriz(i, j) != "0"){	
+
+		if(getMatriz(i, j) != "0"){
 			if(getMatriz(i, j) == "T1B" || getMatriz(i, j) == "T2B"|| getMatriz(i,j) == "RB" ){//a primeira peca no caminho for uma dessa ta em xeque
 					return true;
 			}
 			else{j = 3;}
-		}	
+		}
 		i++;
-		
+
 	}
 	return false;
 }
 
+//XEQUE BRANCO
+bool Tabuleiro:: xeque_RB( int n , int m){//da pra verificar na (0,2)(0,4)(0,6) os risco para o rei
 
+	if (m == 7 && n ==6){
+		for (int j = 0; j < 8; j++){
+			if ((getMatriz(1, j) == "C1P") || (getMatriz(1, j) == "C2P")){
+				if( (j == 2)|| (j == 4) ||(j == 6)){
+					return true;
+				}
+			}
+			if ((getMatriz(2, j) == "C1P") || (getMatriz(2, j) == "C2P")){
+				if( (j == 3)|| (j == 5) ||(j == 7)){
+					return true;
+				}
+			}
+		}
+	}
+	if (m == 7 && n == 2){
+		for (int j = 0; j < 8; j++){
+			if ((getMatriz(1, j) == "C1P") || (getMatriz(1, j) == "C2P")){
+				if( (j == 4)|| (j == 2) ||(j == 0)||(j == 6)){
+					return true;
+				}
+			}
+			if ((getMatriz(2, j) == "C1P") || (getMatriz(2, j) == "C2P")){
+				if( (j == 5)|| (j == 3) ||(j == 1)){
+					return true;
+				}
+			}
+		}
+	}
+	int i = n;
+	int j = m;
+	while( j > 0 ){
+	//percorrendo para direita reto e analisando se tem alguna peca a adversaria""
 
+		if(getMatriz(i, j) != "0"){
+			if(((i == 6 ) && (j == 1)) || ((i == 6) && (j == 3)) || ((i == 6) && (j == 5))){
 
+				if((getMatriz(i, j) == "P1P") ||(getMatriz(i, j) == "P2P")||(getMatriz(i, j) == "P3P") ||
+				 (getMatriz(i, j) == "P4P" )||(getMatriz(i, j) == "P5P") ||(getMatriz(i, j) == "P6P" ) ||
+				 (getMatriz(i, j) == "P7P" )|| (getMatriz(i, j) == "P8P")){
+					return true;
+				}
+			}
+			if(getMatriz(i, j) == "B1P" || getMatriz(i, j) == "B2P"|| getMatriz(i,j) == "RP" ){//a primeira peca no caminho for uma dessa ta em xeque
+					return true;
+			}
+			else{j = 0;}
+		}
+		i++;
+		j--;
+	}
+	i = n;
+	i = m;
 
+	while( j < 7){
+		if(getMatriz(i, j) != "0"){
+			if((i == 6 && j == 3) ||(i == 6 && j == 5) || (i == 6 && j ==7)){
+				if((getMatriz(i, j) == "P1P") ||(getMatriz(i, j) == "P2P")||(getMatriz(i, j) == "P3P") ||
+				 (getMatriz(i, j) == "P4P" )||(getMatriz(i, j) == "P5P") ||(getMatriz(i, j) == "P6P" ) ||
+				 (getMatriz(i, j) == "P7P" )|| (getMatriz(i, j) == "P8P")){return true;}
+			}
+			if(getMatriz(i, j) == "B1P" || getMatriz(i, j) == "B2P"|| getMatriz(i,j) == "RP" ){//a primeira peca no caminho for uma dessa ta em xeque
+					return true;
+			}
+			else{j = 3;}
+			}
+		i--;
+		j++;
+	}
+	i = n;
+	i = m;
+
+	while(  i > 0){
+		if(getMatriz(i, j) != "0"){
+			if(getMatriz(i, j) == "T1P" || getMatriz(i, j) == "T2P"|| getMatriz(i,j) == "RP" ){//a primeira peca no caminho for uma dessa ta em xeque
+					return true;
+			}
+			else{j = 3;}
+		}
+		i--;
+
+	}
+	return false;
+}

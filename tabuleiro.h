@@ -16,15 +16,29 @@ class Tabuleiro {
 public:
 
 	//incializando pecas no tabuleiro
-	Tabuleiro();	
+	Tabuleiro();
 
 	std::string getMatriz(int lin, int col) {return _matriz[lin][col];}
 
 	void setMatriz(int lin, int col, const std::string& pec) {_matriz[lin][col] = pec;}
-	
-	bool roque(int, int, char);	
+
+	/* FUNCAO VERIFICA ULTIMA JOGADA REALIZADA
+	 *    Recebe como parametros um vetor com as realizadas e um peao.
+	 *   Retorna um valor logico (true ou false) informando se o peao analisado encontra-se ao lado do peao que deseja realizar o movimento 'en passant'
+	 */
+	bool mov_anterior(std::vector<std::string>, Peao);
+
+	/* EN_PASSANT
+	 *    Recebe como parametros as posicoes i e j do peao analisado e, o proprio peao.
+	 *    Retorna valor logico (true ou false) informando se o movimento pode ser realizado.
+	 */
+	bool en_passant( int, int, Peao );
+
+	bool roque(int, int, char);
 
 	bool xeque_RP(int n, int m);
+
+	bool xeque_RB( int n , int m);
 
 	bool jogada(const std::string& nome_peca, int pos_i_final, int pos_j_final, std::string jogada);
 

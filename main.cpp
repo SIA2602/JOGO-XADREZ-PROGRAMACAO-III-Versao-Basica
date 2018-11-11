@@ -50,15 +50,15 @@ int main( int argc, char *argv[] )
 		for(;;)
 		{
 			impressao(t, printar_caracteres_especiais);
-			if( cont%2 == 0 ) std::cout << "Entrada Time Branco: ";	
-			else std::cout << "Entrada Time Preto: ";		
-			std::string jogada;			
-			std::cin >> jogada;	
-			if(jogada == "fim") break;		
+			if( cont%2 == 0 ) std::cout << "Entrada Time Branco: ";
+			else std::cout << "Entrada Time Preto: ";
+			std::string jogada;
+			std::cin >> jogada;
+			if(jogada == "fim") break;
 
-			decodifica_main(t, jogada, printar_caracteres_especiais, cont);					
+			decodifica_main(t, jogada, printar_caracteres_especiais, cont);
 			cont++;
-		}		
+		}
 	}
 	return 0;
 }
@@ -66,19 +66,19 @@ int main( int argc, char *argv[] )
 
 void carrega_dados( vector<string> &jogadas_times, char *argv[] )
 {
-	DataFileReader dfr(argv[1]);		
+	DataFileReader dfr(argv[1]);
 	// Lê os dados
 	int jogada;
-	string time_branco, time_preto;	
+	string time_branco, time_preto;
 
 	for(;;)
-	{ 
-		++dfr;					
+	{
+		++dfr;
 		dfr >> jogada >> time_branco >> time_preto;
 		if( time_branco == "fim" || time_preto == "fim" ) break;
 		//cout << jogada << " " << time_branco << " " << time_preto << endl;
 		jogadas_times.push_back(time_branco);
-		jogadas_times.push_back(time_preto);						
+		jogadas_times.push_back(time_preto);
 	}
 
 	return;
@@ -105,7 +105,7 @@ void decodifica_main(Tabuleiro &t, string jogadas_times, bool printar_caracteres
 			cout << peca << " " << linha << " " << coluna << endl;
 
 			if(!t.jogada(peca, linha, coluna, jogada_atual))
-			{					
+			{
 				std::cout << "Jogada Invalida" << std::endl;
 			}
 		}
@@ -118,7 +118,7 @@ void decodifica_main(Tabuleiro &t, string jogadas_times, bool printar_caracteres
 			cout << peca << " " << linha << " " << coluna << endl;
 
 			if(!t.jogada(peca, linha, coluna, jogada_atual))
-			{					
+			{
 				std::cout << "Jogada Invalida" << std::endl;
 			}
 		}
@@ -132,14 +132,14 @@ void decodifica_main(Tabuleiro &t, string jogadas_times, bool printar_caracteres
 			string peca = switch_char_string(jogada_atual[0]) + std::string("1") + cor_time;
 			if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) peca = switch_char_string(jogada_atual[0]) + cor_time;
 			int linha = switch_para_numero(jogada_atual[2]);
-			int coluna = switch_para_letra(jogada_atual[1]);		
+			int coluna = switch_para_letra(jogada_atual[1]);
 
 			if(!t.jogada(peca, linha, coluna, jogada_atual))
 			{
 				peca = switch_char_string(jogada_atual[0]) + std::string("2") + cor_time;
-				if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) peca = switch_char_string(jogada_atual[0]) + cor_time;									
+				if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) peca = switch_char_string(jogada_atual[0]) + cor_time;
 				if(!t.jogada(peca, linha, coluna, jogada_atual))
-				{					
+				{
 					std::cout << "Jogada Invalida" << std::endl;
 				}
 				cout << peca << " " << linha << " " << coluna << endl;
@@ -153,14 +153,14 @@ void decodifica_main(Tabuleiro &t, string jogadas_times, bool printar_caracteres
 			string peca = switch_char_string(jogada_atual[0]) + std::string("1") + cor_time;
 			if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) peca = switch_char_string(jogada_atual[0]) + cor_time;
 			int linha = switch_para_numero(jogada_atual[3]);
-			int coluna = switch_para_letra(jogada_atual[2]);		
+			int coluna = switch_para_letra(jogada_atual[2]);
 
 			if(!t.jogada(peca, linha, coluna, jogada_atual))
 			{
 				peca = switch_char_string(jogada_atual[0]) + std::string("2") + cor_time;
-				if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) peca = switch_char_string(jogada_atual[0]) + cor_time;									
+				if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) peca = switch_char_string(jogada_atual[0]) + cor_time;
 				if(!t.jogada(peca, linha, coluna, jogada_atual))
-				{					
+				{
 					std::cout << "Jogada Invalida" << std::endl;
 				}
 				cout << peca << " " << linha << " " << coluna << endl;
@@ -238,7 +238,7 @@ std::string switch_char_string(char letra)
 		case 'D':
 			return std::string("D");
 		case 'R':
-			return std::string("R");		
+			return std::string("R");
 	}
 
 	return std::string("erro");;

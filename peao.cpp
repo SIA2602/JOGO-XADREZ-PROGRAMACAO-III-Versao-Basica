@@ -23,6 +23,7 @@ bool Peao::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabulei
       tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(pos_atual_i, pos_atual_j));
       tabuleiro->setMatriz(pos_atual_i, pos_atual_j, "0");
       inicializa_posicao(pos_final_i, pos_final_j);
+      setColuna( pos_final_i - pos_atual_i );
       nJogadas++;
       return true;
    }
@@ -87,6 +88,20 @@ bool Peao::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabulei
 int Peao::getNJogadas(void)
 {
    return nJogadas;
+}
+
+void Peao::setNJogadas(void)
+{
+   nJogadas++;
+}
+
+int Peao::getColuna(void)
+{
+   return coluna;
+}
+void Peao::setColuna(int x)
+{
+   coluna = coluna + x;
 }
 
 int Peao::posicao_inicial_i(void)
