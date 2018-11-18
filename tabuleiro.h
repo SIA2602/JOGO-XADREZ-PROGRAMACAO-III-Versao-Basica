@@ -112,12 +112,10 @@ public:
 	}
 
 	bool en_passant( std::string nome_peca, int linha_final, int coluna_final );
-	
+
 	bool roque(int, int, char);
 
-	bool xeque_RP(int n, int m);
-
-	bool xeque_RB( int n , int m);
+	bool xeque( int n , int m);
 
 	bool jogada(const std::string& nome_peca, int pos_i_final, int pos_j_final, std::string jogada);
 
