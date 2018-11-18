@@ -138,7 +138,7 @@ T DataFileReader::readColumn( MTci &C ){
     aborta(msg);
   }
   T v;
-  stringstream ss( _lineContent[C-1] );
+  stringstream ss( _lineContent[ std::size_t(C-1) ] );
   ss >> v;
   return v;
 }
@@ -149,7 +149,7 @@ T DataFileReader::readColumn( MTci &C ){
 // DESCRICAO:
 //   Sobrecarga do operador >> para inteiros
 template<class T>
-DataFileReader &operator >> ( DataFileReader &s, T &v ){
+DataFileReader &operator >>( DataFileReader &s, T &v ){
 
   // Pega o conteudo da coluna especifica
   v = s.template readColumn<T>(s._columnNumber);

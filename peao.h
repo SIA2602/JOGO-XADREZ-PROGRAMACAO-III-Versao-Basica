@@ -22,7 +22,7 @@ public:
 	void incremento_nJogadas() { nJogadas++; }
 
 private:
-	int peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro);
+	int peca_no_caminho(int, int, int, int, Tabuleiro*);
 	int nJogadas = 0;
 	int pos_atual_i;
 	int pos_atual_j; //posicao atual em i e j

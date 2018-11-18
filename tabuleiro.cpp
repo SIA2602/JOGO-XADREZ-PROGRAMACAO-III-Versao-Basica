@@ -82,9 +82,9 @@ bool Tabuleiro::jogada(const std::string& nome_peca, int pos_i_final, int pos_j_
 	{
 		if( en_passant(nome_peca, pos_i_final, pos_j_final) == true )
 		{
-			std::cout << "Jogada por en-passant" << std::endl; 
+			std::cout << "Jogada por en-passant" << std::endl;
 			return true;
-		} 
+		}
 	}
 
 	historico_jogadas.push_back(jogada); //armazenando a jogada realizada
@@ -110,6 +110,8 @@ bool Tabuleiro::jogada(const std::string& nome_peca, int pos_i_final, int pos_j_
 				return _rei_preto.verifica_jogada(pos_i_final, pos_j_final, this);
 			case 'D':
 				return _rainha_preta.verifica_jogada(pos_i_final, pos_j_final, this);
+			default:
+				return false;
 		}
 	}
 
@@ -130,110 +132,79 @@ bool Tabuleiro::jogada(const std::string& nome_peca, int pos_i_final, int pos_j_
 				return _rei_branco.verifica_jogada(pos_i_final, pos_j_final, this);
 			case 'D':
 				return _rainha_branca.verifica_jogada(pos_i_final, pos_j_final, this);
+			default:
+				return false;
 		}
 	}
 
 	return false;
 }
 
-/*
-// MOVIMENTO EN_PASSANT
-bool Tabuleiro::en_passant( int pos_final_i, int pos_final_j )
+bool Tabuleiro::en_passant( std::string nome_peca, int linha_final, int coluna_final )
 {
-   if( getMatriz( peao.posicao_inicial_i(), pos_final_j )=="0" )
-   {
-      return false;
-   }
+	//nome_peca esta no padrao P1P ou P1B sendo o 1 um numero qualquer de 1 a 8
+	//linha_final eh a linha final ao qual o peao ira se deslocar
+	//coluna_final eh a coluna final ao qual o peao ira se deslocar
+	std::string nome_peca_anterior;
+	int linha_peca_anterior, coluna_peca_anterior;
 
-   std::string nome_peca = getMatriz( peao.posicao_inicial_i(), peao.posicao_inicial_j() );
-   char tipo = nome_peca[0];
-   nome_peca = getMatriz( peao.posicao_inicial_i(), pos_final_j );
-   char tipo_enemy = nome_peca[0];
+	std::string jogada_anterior = historico_jogadas[historico_jogadas.size()-1];//pega a ultima jogada
+	decofica_jogada_anterior( nome_peca[2],nome_peca_anterior, linha_peca_anterior, coluna_peca_anterior, jogada_anterior );
 
-   char cor = getMatriz( peao.posicao_inicial_i(), peao.posicao_inicial_j() ).back();
-   char cor_enemy = getMatriz( peao.posicao_inicial_i(), pos_final_j ).back();
+	//pegando posicao de cada peao
+	int numero = nome_peca[1] - '1';
+	int numero_anterior = nome_peca_anterior[1] - '1';
 
-   if( tipo!='P' || tipo_enemy!='P' || abs(pos_final_i-peao.posicao_inicial_i())!=1 || abs(pos_final_j-peao.posicao_inicial_j())!=1 || getMatriz(pos_final_i, pos_final_j)!="0" )
-   {
-      return false;
-   }
+	if( historico_jogadas.size() != 0 ) //evitar erro de segmentacao
+	{
+		if( nome_peca_anterior[0] == 'P' && nome_peca[0] == 'P' ) //verificando se sao dois peoes
+		{
+			//caso branco tenha que comer o peao preto
+			if( nome_peca_anterior[2] == 'P'&& _peoes_pretos[coluna_peca_anterior].get_duas_vezes() == true) //caso o peao que sera comido andou duas casas
+			{
+				if(_peoes_pretos[coluna_peca_anterior].get_linha_atual() == 3 && linha_final+1 == 3) //caso estejam na linha 5 do xadrez
+				{
+					if( abs(linha_final- _peoes_brancos[numero].get_linha_atual()) == 2 ) _peoes_brancos[numero].set_duas_vezes_true();
+							else _peoes_brancos[numero].set_duas_vezes_false();
 
-   int numero = nome_peca[1] - '1';
+					setMatriz(linha_final, coluna_final, getMatriz(_peoes_brancos[numero].get_linha_atual(), _peoes_brancos[numero].get_coluna_atual()));
+								setMatriz(_peoes_brancos[numero].get_linha_atual(), _peoes_brancos[numero].get_coluna_atual(), "0");
+								setMatriz(_peoes_pretos[numero_anterior].get_linha_atual(), _peoes_pretos[numero_anterior].get_coluna_atual(), "0");
+								_peoes_brancos[numero].inicializa_posicao(linha_final, coluna_final);
+								_peoes_brancos[numero].incremento_nJogadas();
+					return true;
+				}
 
-   //BRANCA CAPTURA
-   if(cor=='B')
-   {
-      if( cor_enemy!=cor && pos_final_i==peao.posicao_inicial_i()-1 && _peoes_pretos[numero].getNJogadas()==1 && mov_anterior(getHistoricoJogadas(), getMatriz(_peoes_pretos[numero].posicao_inicial_i(),_peoes_pretos[numero].posicao_inicial_j()))) )
-      {
-         setMatriz(pos_final_i, pos_final_j, getMatriz(peao.posicao_inicial_i(), peao.posicao_inicial_j()));
-         setMatriz(peao.posicao_inicial_i(), peao.posicao_inicial_j(), "0");
-         setMatriz(peao.posicao_inicial_i(),pos_final_j, "0");
+				else return false;
+			}
 
-         peao->inicializa_posicao(pos_final_i, pos_final_j);
-         peao->setNJogadas();
-         return true;
-      }
-   }
+			//caso preta tenha que comer o peao branco
+			else if( nome_peca_anterior[2] == 'B'&& _peoes_brancos[coluna_peca_anterior].get_duas_vezes() == true) //caso o peao que sera comido andou duas casas
+			{
+				if(_peoes_brancos[coluna_peca_anterior].get_linha_atual() == 4 && linha_final-1 == 4) //caso estejam na linha 5 do xadrez
+				{
+					if( abs(linha_final- _peoes_pretos[numero].get_linha_atual()) == 2 ) _peoes_pretos[numero].set_duas_vezes_true();
+							else _peoes_pretos[numero].set_duas_vezes_false();
 
-   //PRETA CAPTURA
-   else if(cor=='P')
-   {
-      if( cor_enemy!=cor && pos_final_i==peao.posicao_inicial_i()+1 && _peoes_brancos[numero].getNJogadas()==1 && mov_anterior(getHistoricoJogadas(), getMatriz(_peoes_brancos[numero].posicao_inicial_i(),_peoes_brancos[numero].posicao_inicial_j())) )
-      {
-         setMatriz(pos_final_i, pos_final_j, getMatriz(peao.posicao_inicial_i(), peao.posicao_inicial_j()));
-         setMatriz(peao.posicao_inicial_i(), peao.posicao_inicial_j(), "0");
-         setMatriz(peao.posicao_inicial_i(),pos_final_j, "0");
+					setMatriz(linha_final, coluna_final, getMatriz(_peoes_pretos[numero].get_linha_atual(), _peoes_pretos[numero].get_coluna_atual()));
+								setMatriz(_peoes_pretos[numero].get_linha_atual(), _peoes_pretos[numero].get_coluna_atual(), "0");
+								setMatriz(_peoes_brancos[numero_anterior].get_linha_atual(), _peoes_brancos[numero_anterior].get_coluna_atual(), "0");
+								_peoes_pretos[numero].inicializa_posicao(linha_final, coluna_final);
+								_peoes_pretos[numero].incremento_nJogadas();
+					return true;
+				}
 
-         peao.inicializa_posicao(pos_final_i, pos_final_j);
-         peao.setNJogadas();
-         return true;
-      }
-   }
-   return false;
+				else return false;
+			}
+
+			else return false;
+		}
+
+		else return false;
+	}
+
+	else return false;
 }
-
-bool Tabuleiro::mov_anterior(std::vector<std::string> v, std::string peao)
-{
-   std::string ultima_jogada = v[v.size()-1];
-
-	char tipo, numero, cor;
-	if( islower(ultima_jogada[0]) )
-	{
-		tipo = 'P';
-	}
-	else
-	{
-		return false;
-	}
-	if( (v.size()-1)%2==0 )
-	{
-		cor = 'B';
-	}
-	else
-	{
-		cor = 'P';
-	}
-	numero = char('1' + switch_para_letra(ultima_jogada[0]));
-
-	std::string pawn_enemy = tipo + numero + cor;
-
-   if( piece[0] == 'P' )
-   {
-      if(peao == pawn_enemy)
-      {
-         return true;
-      }
-      else
-      {
-         return false;
-      }
-   }
-   else
-   {
-      return false;
-   }
-}
-*/
 
 // ROQUE MAIOR E ROQUE MENOR
 bool Tabuleiro :: roque(int pos_final_i, int pos_final_j, char ){
@@ -309,7 +280,7 @@ bool Tabuleiro:: xeque_RP( int n , int m){//da pra verificar na (0,2)(0,4)(0,6) 
 	int j = m;
 
 	if (m == 0 && n == 6){
-		for (int j = 0; j < 8; j++){
+		for (j = 0; j < 8; j++){
 			if ((getMatriz(1, j) == "C1P") || (getMatriz(1, j) == "C2P")){
 				if( (j == 2)|| (j == 4) ||(j == 6)){
 					return true;
@@ -323,7 +294,7 @@ bool Tabuleiro:: xeque_RP( int n , int m){//da pra verificar na (0,2)(0,4)(0,6) 
 		}
 	}
 	if (m == 0 && n == 2){
-		for (int j = 0; j < 8; j++){
+		for (j = 0; j < 8; j++){
 			if ((getMatriz(1, j) == "C1P") || (getMatriz(1, j) == "C2P")){
 				if( (j == 4)|| (j == 2) ||(j == 0)||(j == 6)){
 					return true;

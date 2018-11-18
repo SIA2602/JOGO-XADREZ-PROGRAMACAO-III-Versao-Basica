@@ -42,6 +42,8 @@ public:
 				return 6;
 			case 'h':
 				return 7;
+			default:
+				return -1;
 		}
 
 		return -1;
@@ -67,6 +69,8 @@ public:
 				return 1;
 			case '8':
 				return 0;
+			default:
+				return -1;
 		}
 
 		return -1;
@@ -86,6 +90,8 @@ public:
 				return std::string("D");
 			case 'R':
 				return std::string("R");
+			default:
+				return std::string("erro");
 		}
 
 		return std::string("erro");
@@ -105,72 +111,8 @@ public:
 		return;
 	}
 
-	bool en_passant( std::string nome_peca, int linha_final, int coluna_final )
-	{			
-		//nome_peca esta no padrao P1P ou P1B sendo o 1 um numero qualquer de 1 a 8
-		//linha_final eh a linha final ao qual o peao ira se deslocar
-		//coluna_final eh a coluna final ao qual o peao ira se deslocar		
-		std::string nome_peca_anterior;
-		int linha_peca_anterior, coluna_peca_anterior;
-
-		std::string jogada_anterior = historico_jogadas[historico_jogadas.size()-1];//pega a ultima jogada
-		decofica_jogada_anterior( nome_peca[2],nome_peca_anterior, linha_peca_anterior, coluna_peca_anterior, jogada_anterior );
-
-		//pegando posicao de cada peao
-		int numero = nome_peca[1] - '1';
-		int numero_anterior = nome_peca_anterior[1] - '1';
-
-		if( historico_jogadas.size() != 0 ) //evitar erro de segmentacao
-		{			
-			if( nome_peca_anterior[0] == 'P' && nome_peca[0] == 'P' ) //verificando se sao dois peoes
-			{
-				//caso branco tenha que comer o peao preto
-				if( nome_peca_anterior[2] == 'P'&& _peoes_pretos[coluna_peca_anterior].get_duas_vezes() == true) //caso o peao que sera comido andou duas casas
-				{
-					if(_peoes_pretos[coluna_peca_anterior].get_linha_atual() == 3 && linha_final+1 == 3) //caso estejam na linha 5 do xadrez
-					{
-						if( abs(linha_final- _peoes_brancos[numero].get_linha_atual()) == 2 ) _peoes_brancos[numero].set_duas_vezes_true();
-   	  					else _peoes_brancos[numero].set_duas_vezes_false();
-
-						setMatriz(linha_final, coluna_final, getMatriz(_peoes_brancos[numero].get_linha_atual(), _peoes_brancos[numero].get_coluna_atual()));
-            			setMatriz(_peoes_brancos[numero].get_linha_atual(), _peoes_brancos[numero].get_coluna_atual(), "0");
-            			setMatriz(_peoes_pretos[numero_anterior].get_linha_atual(), _peoes_pretos[numero_anterior].get_coluna_atual(), "0");
-            			_peoes_brancos[numero].inicializa_posicao(linha_final, coluna_final);
-           				_peoes_brancos[numero].incremento_nJogadas();            
-						return true;
-					}
-
-					else return false;
-				}
-
-				//caso preta tenha que comer o peao branco
-				else if( nome_peca_anterior[2] == 'B'&& _peoes_brancos[coluna_peca_anterior].get_duas_vezes() == true) //caso o peao que sera comido andou duas casas
-				{
-					if(_peoes_brancos[coluna_peca_anterior].get_linha_atual() == 4 && linha_final-1 == 4) //caso estejam na linha 5 do xadrez
-					{
-						if( abs(linha_final- _peoes_pretos[numero].get_linha_atual()) == 2 ) _peoes_pretos[numero].set_duas_vezes_true();
-   	  					else _peoes_pretos[numero].set_duas_vezes_false();
-
-						setMatriz(linha_final, coluna_final, getMatriz(_peoes_pretos[numero].get_linha_atual(), _peoes_pretos[numero].get_coluna_atual()));
-            			setMatriz(_peoes_pretos[numero].get_linha_atual(), _peoes_pretos[numero].get_coluna_atual(), "0");
-            			setMatriz(_peoes_brancos[numero_anterior].get_linha_atual(), _peoes_brancos[numero_anterior].get_coluna_atual(), "0");
-            			_peoes_pretos[numero].inicializa_posicao(linha_final, coluna_final);
-           				_peoes_pretos[numero].incremento_nJogadas();            
-						return true;
-					}
-
-					else return false;
-				}
-
-				else return false;
-			}
-
-			else return false;
-		}
-
-		else return false;
-	}
-
+	bool en_passant( std::string nome_peca, int linha_final, int coluna_final );
+	
 	bool roque(int, int, char);
 
 	bool xeque_RP(int n, int m);

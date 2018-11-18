@@ -30,17 +30,17 @@ bool Bispo::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabule
  	else return false;
 	}
 
-int Bispo::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro)
+int Bispo::peca_no_caminho(int posicao_i, int posicao_j, int pos_final_i, int pos_final_j, Tabuleiro *tabuleiro)
 {
-	if(pos_atual_i == pos_final_i && pos_atual_j == pos_final_j) return 1;
+	if(posicao_i == pos_final_i && posicao_j == pos_final_j) return 1;
 
-	if(pos_atual_i > pos_final_i && pos_atual_j > pos_final_j) //caso 1 = andando para cima  a esquerda
+	if(posicao_i > pos_final_i && posicao_j > pos_final_j) //caso 1 = andando para cima  a esquerda
 	{
-		int i = pos_atual_i-1;
-		int j = pos_atual_j-1;
+		int i = posicao_i-1;
+		int j = posicao_j-1;
 
 		while(i > pos_final_i && j > pos_final_j)
-		{			
+		{
 			if(tabuleiro->getMatriz(i, j) != "0")
 			{
 		    	return 1;//caso return 1 significa que tem peca
@@ -51,13 +51,13 @@ int Bispo::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, in
 		return 0;//se retornar zero que dizer que nao tem peca no caminho
 	}
 
-	if(pos_atual_i > pos_final_i && pos_atual_j < pos_final_j)//caso 2 = andando para cima  a direita
+	if(posicao_i > pos_final_i && posicao_j < pos_final_j)//caso 2 = andando para cima  a direita
 	{
-		int i = pos_atual_i-1;
-		int j = pos_atual_j+1;
+		int i = posicao_i-1;
+		int j = posicao_j+1;
 
 		while(i > pos_final_i && j < pos_final_j)
-		{			
+		{
 			if(tabuleiro->getMatriz(i, j)!= "0")
 			{
 		    	return 1;//caso return 1 significa que tem peca
@@ -68,13 +68,13 @@ int Bispo::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, in
 		return 0;//se retornar zero que dizer que nao tem peca no caminho
 	}
 
-	if(pos_atual_i < pos_final_i && pos_atual_j < pos_final_j)//caso 3  = andando para baixo  a esquerda
+	if(posicao_i < pos_final_i && posicao_j < pos_final_j)//caso 3  = andando para baixo  a esquerda
 	{
-		int i = pos_atual_i+1;
-		int j = pos_atual_j+1;
+		int i = posicao_i+1;
+		int j = posicao_j+1;
 
 		while(i < pos_final_i && j < pos_final_j)
-		{			
+		{
 			if(tabuleiro->getMatriz(i, j)!= "0")
 			{
 	    		return 1;//caso return 1 significa que tem peca
@@ -85,13 +85,13 @@ int Bispo::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, in
 		return 0;//se retornar zero que dizer que nao tem peca no caminho
 	}
 
-	if(pos_atual_i < pos_final_i && pos_atual_j > pos_final_j)//caso 4 = andando para baixo  a direita
+	if(posicao_i < pos_final_i && posicao_j > pos_final_j)//caso 4 = andando para baixo  a direita
 	{
-		int i = pos_atual_i+1;
-		int j = pos_atual_j-1;
+		int i = posicao_i+1;
+		int j = posicao_j-1;
 
 		while(i < pos_final_i && j > pos_final_j)
-		{			
+		{
 			if(tabuleiro->getMatriz(i, j)!= "0")
 			{
 				return 1;//caso return 1 significa que tem peca
@@ -101,6 +101,6 @@ int Bispo::peca_no_caminho(int pos_atual_i, int pos_atual_j, int pos_final_i, in
 		}
 		return 0;//se retornar zero que dizer que nao tem peca no caminho
 	}
-	
-	return 0;	
+
+	return 0;
 }
